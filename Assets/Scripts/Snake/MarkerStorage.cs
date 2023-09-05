@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class MarkerManager : MonoBehaviour
+//https://www.youtube.com/watch?v=sPlcecIh3ik&ab_channel=RandomArtAttack
+//https://www.youtube.com/watch?v=A-SZDQIDXXI&ab_channel=RandomArtAttack
+public class MarkerStorage : MonoBehaviour
 {
     public class Marker
     {
@@ -23,13 +25,11 @@ public class MarkerManager : MonoBehaviour
     }
 
     public List<Marker> markerList = new List<Marker>();
-    public int count = 0; //DEBUG
 
     void FixedUpdate()
     {
 
         UpdateMarkerList();
-        count = markerList.Count;
 
     }
 

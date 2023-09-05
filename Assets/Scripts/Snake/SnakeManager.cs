@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
 using UnityEngine;
+using UnityEngine.Timeline;
 
-public class MySnakeManager : MonoBehaviour
+public class SnakeManager : MonoBehaviour
 {
-    [SerializeField] float distanceBetween = .2f;
-    [SerializeField] float speed = 180f;
-    [SerializeField] float turnSpeed = 18f;
 
-    [SerializeField] List<GameObject> bodyParts = new List<GameObject>();
+    //Fixed Update saniyede calisma miktari
+    const int FIXED_FPS = 50;
+
+    [SerializeField] private float distanceBetween = .2f;
+    [SerializeField] private float speed = 180f;
+    [SerializeField] private float turnSpeed = 18f;
+
+    [SerializeField] private List<GameObject> bodyParts = new List<GameObject>();
     List<GameObject> snakeBody = new List<GameObject>();
 
     float countUp = 0;
@@ -61,36 +66,38 @@ public class MySnakeManager : MonoBehaviour
             for(int i = 1; i < snakeBody.Count; i++)
             {
 
-                MyMarkerManager markM = snakeBody[i - 1].GetComponent<MyMarkerManager>();
-                markM.UpdateMarker();
-                
-                snakeBody[i].transform.position = markM.lastMarker.position;
-                snakeBody[i].transform.rotation = markM.lastMarker.rotation;
+                MarkerStorage markM = snakeBody[i - 1].GetComponent<MarkerStorage>();
+                snakeBody[i].transform.position = markM.markerList[0].position;
+                snakeBody[i].transform.rotation = markM.markerList[0].rotation;
+                markM.markerList.RemoveAt(0);
 
             }
-             
+
+            //En sondaki modulun marker sayisini 50 FPS * distanceBetween degerinde tutma
+
+            if(snakeBody[snakeBody.Count - 1].GetComponent<MarkerStorage>().markerList.Count > FIXED_FPS * distanceBetween){
+
+                snakeBody[snakeBody.Count - 1].GetComponent<MarkerStorage>().markerList.RemoveAt(0);
+
+            }
+
         }
 
     }
 
     void CreateBodyParts()
     {
-        if(snakeBody.Count == 0)
-        {
+        if(snakeBody.Count == 0){ InstantiateModule(); }
 
-            InstantiateModule();
+        MarkerStorage markM = snakeBody[snakeBody.Count - 1].GetComponent<MarkerStorage>();
 
-        }
-
-        MyMarkerManager markM = snakeBody[snakeBody.Count - 1].GetComponent<MyMarkerManager>();
-
-        if(countUp == 0) { markM.ClearMarker(); }
+        if(countUp == 0) { markM.ClearMarkerList(); }
         countUp += Time.deltaTime;
 
         if(countUp >= distanceBetween) {
 
             GameObject tempModule = InstantiateModule();
-            tempModule.GetComponent<MyMarkerManager>().ClearMarker();
+            tempModule.GetComponent<MarkerStorage>().ClearMarkerList();
             countUp = 0;
 
         }
@@ -102,7 +109,7 @@ public class MySnakeManager : MonoBehaviour
     {
         GameObject temp = Instantiate(bodyParts.First(), transform.position, transform.rotation, transform);
 
-        if (!temp.GetComponent<MyMarkerManager>()) { temp.AddComponent<MyMarkerManager>(); }
+        if (!temp.GetComponent<MarkerStorage>()) { temp.AddComponent<MarkerStorage>(); }
 
         if (!temp.GetComponent<Rigidbody2D>())
         {
