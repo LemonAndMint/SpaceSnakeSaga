@@ -6,18 +6,33 @@ using Unity.VisualScripting;
 
 public class BlankModule : MonoBehaviour, IModule
 {
-    private int health;
-    private int currentHealth;
-    private float actionCooldown;
+    [SerializeField] private int _health;
+    [SerializeField] private float _actionCooldown;
+
+    private int _currentHealth;
+
     //protected bool isReady = true;
 
+    private void Start() {
+
+        _currentHealth = _health;
+    
+    }
+
+    /// <summary>
+    /// Modül aksiyonları uygulanır. Metodu cooldown değerinden bağımsızdır.
+    /// </summary>
     public virtual void Action(){ } //Bos modul icin aksiyon yok
 
+    /// <summary>
+    /// Modüllerin hasar almasını sağlar.
+    /// </summary>
+    /// <param name="damage">Verilecek hasarın değeri.</param>
     public virtual void GetHit(int damage)
     {
         
-        currentHealth -= damage;
-        if(currentHealth < 0){ Die(); }
+        _currentHealth -= damage;
+        if(_currentHealth < 0){ Die(); }
 
     }
 
