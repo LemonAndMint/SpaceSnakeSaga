@@ -8,6 +8,8 @@ public class BlankModule : MonoBehaviour, IModule
 {
     [SerializeField] private int _health;
     [SerializeField] private float _actionCooldown;
+    [SerializeField] private float _moduleCreationTime;
+
 
     private int _currentHealth;
 
@@ -18,6 +20,14 @@ public class BlankModule : MonoBehaviour, IModule
         _currentHealth = _health;
     
     }
+
+    public void ModuleCreation(){
+
+        
+
+
+    }
+
 
     /// <summary>
     /// Modül aksiyonları uygulanır. Metodu cooldown değerinden bağımsızdır.

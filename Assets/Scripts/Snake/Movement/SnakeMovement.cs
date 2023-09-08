@@ -1,6 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using ModuleManager;
 using UnityEngine;
+
+//https://www.youtube.com/watch?v=sPlcecIh3ik&ab_channel=RandomArtAttack
+//https://www.youtube.com/watch?v=A-SZDQIDXXI&ab_channel=RandomArtAttack
 
 public class SnakeMovement : MonoBehaviour
 {
@@ -10,19 +14,6 @@ public class SnakeMovement : MonoBehaviour
 
     [SerializeField] private float _speed = 180f;
     [SerializeField] private float _turnspeed = 18f;
-
-    List<GameObject> _snakeBody = new List<GameObject>();
-
-    public List<GameObject> SnakeBody { 
-        
-        get{
-
-            return _snakeBody;
-
-        } 
-    
-    }
-
 
     void FixedUpdate()
     {
@@ -34,32 +25,33 @@ public class SnakeMovement : MonoBehaviour
     void Movement()
     {
 
-        _snakeBody[0].GetComponent<Rigidbody2D>().velocity = _snakeBody[0].transform.right * _speed * Time.deltaTime;
+        ModuleContainer.GetModule(0).GetComponent<Rigidbody2D>().velocity = ModuleContainer.GetModule(0).transform.right * _speed * Time.deltaTime;
         if(Input.GetAxis("Horizontal") != 0)
         {
 
-            _snakeBody[0].transform.Rotate(new Vector3(0, 0, -_turnspeed * Time.deltaTime * Input.GetAxis("Horizontal")));
+            ModuleContainer.GetModule(0).transform.Rotate(new Vector3(0, 0, -_turnspeed * Time.deltaTime * Input.GetAxis("Horizontal")));
 
         }
 
-        if(_snakeBody.Count > 1)
+        if(ModuleContainer.Count> 1)
         {
 
-            for(int i = 1; i < _snakeBody.Count; i++)
+            for(int i = 1; i <ModuleContainer.Count; i++)
             {
 
-                MarkerStorage markM = _snakeBody[i - 1].GetComponent<MarkerStorage>();
-                _snakeBody[i].transform.position = markM.markerList[0].position;
-                _snakeBody[i].transform.rotation = markM.markerList[0].rotation;
+                MarkerStorage markM = ModuleContainer.GetModule(i - 1).GetComponent<MarkerStorage>();
+                ModuleContainer.GetModule(i).transform.position = markM.markerList[0].position;
+                ModuleContainer.GetModule(i).transform.rotation = markM.markerList[0].rotation;
                 markM.markerList.RemoveAt(0);
 
             }
 
-            //En sondaki modulun marker sayisini 50 FPS * distanceBetween degerinde tutma
+            //En sondaki modulun marker sayisini modüllerin en başına gelen marker sayisinda tutmak icin yazildi. Eger bu kisim yazilmasa marker sayisi kontrol edilemez rakamlara ulasiyor.
 
-            if( _snakeBody[_snakeBody.Count - 1].GetComponent<MarkerStorage>().markerList.Count > _snakeBody[0].GetComponent<MarkerStorage>().markerList.Count + 1){
+            if( ModuleContainer.GetModule(ModuleContainer.Count - 1).GetComponent<MarkerStorage>().markerList.Count > 
+                ModuleContainer.GetModule(0).GetComponent<MarkerStorage>().markerList.Count + 1){
 
-                _snakeBody[_snakeBody.Count - 1].GetComponent<MarkerStorage>().markerList.RemoveAt(0);
+                ModuleContainer.GetModule(ModuleContainer.Count - 1).GetComponent<MarkerStorage>().markerList.RemoveAt(0);
 
             }
 
