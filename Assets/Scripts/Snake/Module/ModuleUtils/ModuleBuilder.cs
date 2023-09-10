@@ -37,8 +37,10 @@ namespace ModuleManager
         /// </summary>
         public static void AddModule(GameObject obj){
 
-            onModuleCreation?.Invoke();
             _modules.Add(obj);
+
+            if(obj.GetComponent<BlankModule>() == null){ obj.AddComponent<BlankModule>(); }
+            obj.GetComponent<BlankModule>().ModuleCreation( () =>  onModuleCreation?.Invoke() ); 
 
         }
 
@@ -69,7 +71,7 @@ namespace ModuleManager
         /// <param name="modulGO">Oluşturulacak modülün GameObject'i </param>
         public void AddModuleParts(GameObject modulGO)
         {
-
+            
             _addingModuleParts.Add(modulGO);
         
         }
@@ -96,7 +98,7 @@ namespace ModuleManager
 
             MarkerStorage markM = ModuleContainer.GetModule(ModuleContainer.Count - 1).GetComponent<MarkerStorage>();
             if(_countUp == 0) { markM.ClearMarkerList(); }
-            
+
             _countUp += Time.deltaTime;
 
             if(_countUp >= _distanceBetween) {
