@@ -6,21 +6,28 @@ using ModuleManager;
 public class ModuleActionExecuter : MonoBehaviour
 {
 
-    //public List<BlankModule> module;
+    public List<Coroutine> actionCoroutines;
 
     private void _startAction(){
 
         //Debug.Log("Action birtch");
         //#TODO _actionRepeater yaz
 
+        //Coroutine actionCoroutine = StartCoroutine();
+
 
     }
 
-    /*private IEnumerator _actionRepeater(){
+    private IEnumerator _actionRepeater(){
+
+        while(true){
+
+            
 
 
+        }
 
-    }*/
+    }
 
 
     void Start()

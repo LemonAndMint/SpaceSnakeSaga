@@ -36,7 +36,7 @@ public class SnakeMovement : MonoBehaviour
         if(ModuleContainer.Count> 1)
         {
 
-            for(int i = 1; i <ModuleContainer.Count; i++)
+            for(int i = 1; i < ModuleContainer.Count; i++)
             {
 
                 MarkerStorage markM = ModuleContainer.GetModule(i - 1).GetComponent<MarkerStorage>();
