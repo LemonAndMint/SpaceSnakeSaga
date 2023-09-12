@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 406eada9aae975444ae43ad761f37dfb, type: 3}
   m_Name: Weapon Energy
   m_EditorClassIdentifier: 
-  modelGameObject: {fileID: 0}
+  modelGameObject: {fileID: 2588947826679329060, guid: d8c2e0389b136a94dac47eb92a692016, type: 3}

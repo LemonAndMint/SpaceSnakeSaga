@@ -6,6 +6,7 @@ using ModuleManager;
 public class ModuleActionExecuter : MonoBehaviour
 {
 
+    public ModuleContainer moduleContainer;
     public List<Coroutine> actionCoroutines;
 
     private void _startAction(){
@@ -33,7 +34,7 @@ public class ModuleActionExecuter : MonoBehaviour
     void Start()
     {
 
-        ModuleContainer.onModuleCreation.AddListener( _startAction);
+        moduleContainer.onModuleCreation.AddListener( _startAction);
 
     }
 

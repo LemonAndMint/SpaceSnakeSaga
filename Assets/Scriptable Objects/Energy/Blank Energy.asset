@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 406eada9aae975444ae43ad761f37dfb, type: 3}
   m_Name: Blank Energy
   m_EditorClassIdentifier: 
-  modelGameObject: {fileID: 0}
+  modelGameObject: {fileID: 8813219308427025834, guid: d1271bc54032554498ff2ff4c0d03977, type: 3}

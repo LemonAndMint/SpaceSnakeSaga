@@ -1,109 +1,106 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Reflection;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace ModuleManager
 {
-    public static class ModuleContainer
-    {
-        /// <summary>
-        /// Bir modül oluşturulurken çalıştırılacak metotları tutan delegate.
-        /// </summary>
-        public static UnityEvent onModuleCreation = new UnityEvent();
-        private static List<GameObject> _modules = new List<GameObject>();
-        public static int Count{
-
-            get { return _modules.Count; }
-
-        }
-        
-        /// <summary>
-        /// Snake'ten modül alır.
-        /// </summary>
-        /// <param name="index"></param>
-        /// <returns> <paramref name = "index"/> noktasındaki modülün GameObject'ini döndürür. </returns>
-        public static GameObject GetModule(int index){
-
-            return _modules[index];
-
-        }
-
-        /// <summary>
-        /// Snake'teki modüllerin GameObject bilgilerini tutar.
-        /// </summary>
-        public static void AddModule(GameObject obj){
-
-            _modules.Add(obj);
-
-            if(obj.GetComponent<BlankModule>() == null){ obj.AddComponent<BlankModule>(); }
-            obj.GetComponent<BlankModule>().ModuleCreation( () =>  onModuleCreation?.Invoke() ); 
-
-        }
-
-        /// <summary>
-        /// Snake'teki modülleri yokeder.
-        /// </summary>
-        /// <param name="index"></param>
-        public static void RemoveModuleAt(int index){
-
-            _modules.RemoveAt(index);
-
-        }
-
-    }
 
     //https://www.youtube.com/watch?v=sPlcecIh3ik&ab_channel=RandomArtAttack
     //https://www.youtube.com/watch?v=A-SZDQIDXXI&ab_channel=RandomArtAttack
-
+    [RequireComponent(typeof(ModuleContainer))]
     public class ModuleBuilder : MonoBehaviour
     {
+
+        public ModuleContainer moduleContainer;
         
         [SerializeField] private float _distanceBetween = .2f;
         [SerializeField] private List<GameObject> _addingModuleParts = new List<GameObject>();
 
-        /// <summary>
-        /// Yeni modül eklemek için çağrılır. Oluşturulacak olan modülün prefabı bir oluşturucu listesine girer. Ardından modül oluşturulma animasyonu başlar.
-        /// </summary>
-        /// <param name="modulGO">Oluşturulacak modülün GameObject'i </param>
-        public void AddModuleParts(GameObject modulGO)
-        {
-            
-            _addingModuleParts.Add(modulGO);
-        
-        }
-        
         float _countUp = 0;
+
         void Start()
         {
 
-            _CreateModuleParts();
+            if(moduleContainer == null)
+                moduleContainer = GetComponent<ModuleContainer>();
+
+            _createModuleParts();
 
         }
 
         private void Update()
         {
 
-            _ManageSnakeBody();
+            _manageSnakeBody();
 
         }
 
-        private void _CreateModuleParts()
+
+        /// <summary>
+        /// Yeni modül, GameObject olarak alınır ve eklenir. Eklenme işlemi hemen gerçekleşir.
+        /// </summary>
+        public void AddModulePart(GameObject modulePrefb)
+        {
+            
+            _addingModuleParts.Add(modulePrefb);
+        
+        }
+
+        /// <summary>
+        /// Yeni modül, string olarak alınır GameObject olarak eklenir. Eklenme <paramref name="_moduleCreationSecond" />. saniye sonra yapılır.
+        /// </summary>
+        public void AddModulePart(string typeName)
+        {
+            Type tempType = _getType(typeName);
+            if( tempType != null ){
+
+                moduleContainer.AddModule(tempType);
+
+            }
+        
+        }
+
+        private Type _getType(string typeName){
+
+            Type type = null;
+
+            switch (typeName)
+            {
+
+                case "Standart Energy":
+                    type = typeof(StandartModule);
+                    break;
+
+                case "Weapon Energy":
+                    type = typeof(WeaponModule);
+                    break;
+
+                default:
+                    break;
+
+            }
+
+            return type;
+
+        }
+
+
+        private void _createModuleParts()
         {
 
-            if(ModuleContainer.Count == 0){ _InstantiateModule(); }
+            if(moduleContainer.Count == 0){ _instantiateModule(); }
 
-            MarkerStorage markM = ModuleContainer.GetModule(ModuleContainer.Count - 1).GetComponent<MarkerStorage>();
+            MarkerStorage markM = moduleContainer.GetModule(moduleContainer.Count - 1).GetComponent<MarkerStorage>();
             if(_countUp == 0) { markM.ClearMarkerList(); }
 
             _countUp += Time.deltaTime;
 
             if(_countUp >= _distanceBetween) {
 
-                GameObject tempModule = _InstantiateModule();
+                GameObject tempModule = _instantiateModule();
+                
                 tempModule.GetComponent<MarkerStorage>().ClearMarkerList();
                 _countUp = 0;
 
@@ -112,40 +109,34 @@ namespace ModuleManager
 
         }
 
-        private void _ManageSnakeBody()
+        private void _manageSnakeBody()
         {
 
-            if (_addingModuleParts.Count > 0){ _CreateModuleParts(); }
+            if (_addingModuleParts.Count > 0){ _createModuleParts(); }
 
-            for (int i = 0; i < ModuleContainer.Count; i++)
+            for (int i = 0; i < moduleContainer.Count; i++)
             {
 
-                if (ModuleContainer.GetModule(i) == null){ ModuleContainer.RemoveModuleAt(i); i--; }
+                if (moduleContainer.GetModule(i) == null){ moduleContainer.RemoveModuleAt(i); i--; }
 
             }
-            if(ModuleContainer.Count == 0) { Destroy(this); }
+            if(moduleContainer.Count == 0) { Destroy(this); }
+
 
         }
 
-        private GameObject _InstantiateModule()
+        private GameObject _instantiateModule()
         {
 
-            GameObject temp = Instantiate(_addingModuleParts.First(), transform.position, transform.rotation, transform);
+            GameObject tempModuleGO = Instantiate(_addingModuleParts.First(), transform.position, transform.rotation);
 
-            if (!temp.GetComponent<MarkerStorage>()) { temp.AddComponent<MarkerStorage>(); }
+            if(tempModuleGO.GetComponent<HeadModule>())
+                tempModuleGO.GetComponent<HeadModule>().moduleBuilder = this;
 
-            if (!temp.GetComponent<Rigidbody2D>())
-            {
-
-                temp.AddComponent<Rigidbody2D>();
-                temp.GetComponent<Rigidbody2D>().gravityScale = 0;
-
-            }
-
+            GameObject snakeBodyGO = moduleContainer.AddModule(tempModuleGO);
             _addingModuleParts.RemoveAt(0);
-            ModuleContainer.AddModule(temp);
 
-            return temp;
+            return snakeBodyGO;
 
         }
 

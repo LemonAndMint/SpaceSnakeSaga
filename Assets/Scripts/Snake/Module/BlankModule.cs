@@ -23,9 +23,6 @@ public class BlankModule : MonoBehaviour, IModule
 
     }
 
-    [SerializeField] private int _moduleCreationSecond;
-
-
     private int _currentHealth;
     private bool _isCreated = false;
 
@@ -35,26 +32,6 @@ public class BlankModule : MonoBehaviour, IModule
 
         _currentHealth = _health;
     
-    }
-
-    /// <summary>
-    /// Modül oluşturur. <paramref name="_moduleCreationTime"/> saniye kadar bekler.
-    /// </summary>
-    /// <param name="creationFunction">Oluşturulduktan sonra ekstradan çalıştırılacak metodlar gönderilebilir</param>
-    public void ModuleCreation(Action creationFunction){
-
-        StartCoroutine(_moduleCreation(creationFunction));
-
-    }
-
-    private IEnumerator _moduleCreation(Action creationFunction){
-
-        yield return new WaitForSeconds(_moduleCreationSecond);
-        _isCreated = true;
-        creationFunction();
-
-        //#TODO diger islemler
-
     }
 
     /// <summary>

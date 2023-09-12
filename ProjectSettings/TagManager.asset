@@ -5,8 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
-  - Energy
   - Bullet
+  - Weapon Energy
+  - Standart Energy
   layers:
   - Default
   - TransparentFX
