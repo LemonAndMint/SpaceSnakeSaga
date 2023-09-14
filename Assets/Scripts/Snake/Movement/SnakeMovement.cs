@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using ModuleManager;
 using UnityEngine;
 
@@ -34,34 +32,38 @@ public class SnakeMovement : MonoBehaviour
 
     void Movement()
     {
-
-        moduleContainer.GetModule(0).GetComponent<Rigidbody2D>().velocity = moduleContainer.GetModule(0).transform.right * _speed * Time.deltaTime;
-        if(Input.GetAxis("Horizontal") != 0)
+        if(moduleContainer.Count > 0)
         {
 
-            moduleContainer.GetModule(0).transform.Rotate(new Vector3(0, 0, -_turnspeed * Time.deltaTime * Input.GetAxis("Horizontal")));
-
-        }
-
-        if(moduleContainer.Count> 1)
-        {
-
-            for(int i = 1; i < moduleContainer.Count; i++)
+            moduleContainer.GetModule(0).GetComponent<Rigidbody2D>().velocity = moduleContainer.GetModule(0).transform.right * _speed * Time.deltaTime;
+            if(Input.GetAxis("Horizontal") != 0)
             {
 
-                MarkerStorage markM = moduleContainer.GetModule(i - 1).GetComponent<MarkerStorage>();
-                moduleContainer.GetModule(i).transform.position = markM.markerList[0].position;
-                moduleContainer.GetModule(i).transform.rotation = markM.markerList[0].rotation;
-                markM.markerList.RemoveAt(0);
+                moduleContainer.GetModule(0).transform.Rotate(new Vector3(0, 0, -_turnspeed * Time.deltaTime * Input.GetAxis("Horizontal")));
 
             }
 
-            //En sondaki modulun marker sayisini modüllerin en başına gelen marker sayisinda tutmak icin yazildi. Eger bu kisim yazilmasa marker sayisi kontrol edilemez rakamlara ulasiyor.
+            if(moduleContainer.Count > 1)
+            {
 
-            if( moduleContainer.GetModule(moduleContainer.Count - 1).GetComponent<MarkerStorage>().markerList.Count > 
-                moduleContainer.GetModule(0).GetComponent<MarkerStorage>().markerList.Count + 1){
+                for(int i = 1; i < moduleContainer.Count; i++)
+                {
 
-                moduleContainer.GetModule(moduleContainer.Count - 1).GetComponent<MarkerStorage>().markerList.RemoveAt(0);
+                    MarkerStorage markM = moduleContainer.GetModule(i - 1).GetComponent<MarkerStorage>();
+                    moduleContainer.GetModule(i).transform.position = markM.markerList[0].position;
+                    moduleContainer.GetModule(i).transform.rotation = markM.markerList[0].rotation;
+                    markM.markerList.RemoveAt(0);
+
+                }
+
+                //En sondaki modulun marker sayisini modüllerin en başına gelen marker sayisinda tutmak icin yazildi. Eger bu kisim yazilmasa marker sayisi kontrol edilemez rakamlara ulasiyor.
+
+                if( moduleContainer.GetModule(moduleContainer.Count - 1).GetComponent<MarkerStorage>().markerList.Count > 
+                    moduleContainer.GetModule(0).GetComponent<MarkerStorage>().markerList.Count + 1){
+
+                    moduleContainer.GetModule(moduleContainer.Count - 1).GetComponent<MarkerStorage>().markerList.RemoveAt(0);
+
+                }
 
             }
 

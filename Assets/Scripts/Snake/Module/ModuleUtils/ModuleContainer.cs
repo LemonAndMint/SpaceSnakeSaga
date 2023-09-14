@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ModuleManager;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -14,7 +12,12 @@ namespace ModuleManager
         /// <summary>
         /// Bir modül oluşturulurken çalıştırılacak metotları tutan delegate.
         /// </summary>
-        public UnityEvent onModuleCreation = new UnityEvent();
+        public UnityEvent<List<BlankModule>> onModuleCreation = new UnityEvent<List<BlankModule>>();
+        /// <summary>
+        /// Bir modül yokedilirken çalıştırılacak metotları tutan delegate.
+        /// </summary>
+        public UnityEvent<List<BlankModule>> onModuleDeletion = new UnityEvent<List<BlankModule>>();
+
         public GameObject SnakePartPrefb;
         /// <summary>
         /// !Kesinlikle içinde bulundurduklaro GameObject'ler null olmamalı!
@@ -92,9 +95,16 @@ namespace ModuleManager
                 moduleGO.transform.SetParent(snakeBodyGO.transform, false);
 
             }
+
             _moduleType = null;
 
-            onModuleCreation?.Invoke();
+            //Sadece BlankModule olan modüllerin aksiyonlarının otomatik olarak gerçekleştirilmesi için.
+            if(moduleGO.GetComponentsInChildren<BlankModule>().Count() > 0 && moduleGO.GetComponentsInChildren<BlankPassiveModule>().Count() < 0)
+                onModuleCreation?.Invoke(moduleGO.GetComponentsInChildren<BlankModule>().ToList());
+
+            //Modül oluşturulurken tek bir canı vardır. Oluşturulduktan sonra orjinal canına döner.
+            if(moduleGO.GetComponentInChildren<ModuleHealth>())
+                moduleGO.GetComponentInChildren<ModuleHealth>().ModuleCreated();
 
         }
 
@@ -110,7 +120,11 @@ namespace ModuleManager
             _modules.Add(snakeBodyGO);
             moduleGO.transform.SetParent(snakeBodyGO.transform);
 
-            onModuleCreation?.Invoke();
+            if(moduleGO.GetComponentsInChildren<BlankModule>().Count() > 0)
+                onModuleCreation?.Invoke(moduleGO.GetComponentsInChildren<BlankModule>().ToList());
+
+            if(moduleGO.GetComponentInChildren<ModuleHealth>())
+                moduleGO.GetComponentInChildren<ModuleHealth>().onDie.AddListener(RemoveModuleGO);
 
             return snakeBodyGO;
 
@@ -143,7 +157,7 @@ namespace ModuleManager
 
         private GameObject _createSnakeBody(){
 
-            GameObject snakeBodyGO = Instantiate(SnakePartPrefb, transform.position, transform.rotation, transform);
+            GameObject snakeBodyGO = Instantiate(SnakePartPrefb, transform.position, transform.rotation);
 
             if (!snakeBodyGO.GetComponent<MarkerStorage>()) { snakeBodyGO.AddComponent<MarkerStorage>(); }
 
@@ -160,12 +174,53 @@ namespace ModuleManager
         }
 
         /// <summary>
-        /// Snake'teki modülleri yokeder.
+        /// Snake'teki modülleri <paramref name="_modules"/> listesindeki indexlerine göre yokeder.
         /// </summary>
         /// <param name="index"></param>
         public void RemoveModuleAt(int index){
 
-            _modules.RemoveAt(index);
+            onModuleDeletion?.Invoke(_modules[index].GetComponentsInChildren<BlankModule>().ToList());
+
+            Destroy(_modules[index]);
+
+            _modules[index] = null; 
+            _removeOtherModules();
+
+        }
+        /// <summary>
+        /// Snake'teki modülleri <paramref name="_modules"/> listesindeki GameObject'lerine göre yokeder.
+        /// </summary>
+        /// <param name="moduleGameObject"></param>
+        public void RemoveModuleGO(GameObject moduleGameObject){
+
+            onModuleDeletion?.Invoke(moduleGameObject.GetComponentsInChildren<BlankModule>().ToList());
+
+            Destroy(moduleGameObject);
+
+            _modules[_modules.IndexOf(moduleGameObject)] = null;
+            _removeOtherModules();
+            
+        }
+
+        private void _removeOtherModules() {
+
+            for (int i = 0; i < _modules.Count; i++)
+            {
+
+                if (GetModule(i) == null)
+                {
+                    int oldCount = _modules.Count;
+                    for (int k = i; k < oldCount; k++)
+                    {
+
+                        Destroy(_modules[i]);
+                        _modules.RemoveAt(i); 
+
+                    }
+                    
+                }
+
+            }
 
         }
 

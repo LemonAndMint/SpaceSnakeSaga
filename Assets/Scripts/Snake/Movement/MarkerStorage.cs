@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 //https://www.youtube.com/watch?v=sPlcecIh3ik&ab_channel=RandomArtAttack

@@ -5,9 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
-  - Bullet
   - Weapon Energy
   - Standart Energy
+  - Enemy Bullet
+  - Player Bullet
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - Water
   - UI
   - Module
-  - 
+  - Player Bullet
   - 
   - 
   - 

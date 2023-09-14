@@ -1,19 +1,22 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace ModuleManager
 {
 
     //https://www.youtube.com/watch?v=sPlcecIh3ik&ab_channel=RandomArtAttack
     //https://www.youtube.com/watch?v=A-SZDQIDXXI&ab_channel=RandomArtAttack
+    
     [RequireComponent(typeof(ModuleContainer))]
     public class ModuleBuilder : MonoBehaviour
     {
 
         public ModuleContainer moduleContainer;
+
+        public UnityAction<GameObject> onGameOver;
         
         [SerializeField] private float _distanceBetween = .2f;
         [SerializeField] private List<GameObject> _addingModuleParts = new List<GameObject>();
@@ -86,7 +89,6 @@ namespace ModuleManager
 
         }
 
-
         private void _createModuleParts()
         {
 
@@ -106,22 +108,12 @@ namespace ModuleManager
 
             }
 
-
         }
 
         private void _manageSnakeBody()
         {
 
-            if (_addingModuleParts.Count > 0){ _createModuleParts(); }
-
-            for (int i = 0; i < moduleContainer.Count; i++)
-            {
-
-                if (moduleContainer.GetModule(i) == null){ moduleContainer.RemoveModuleAt(i); i--; }
-
-            }
-            if(moduleContainer.Count == 0) { Destroy(this); }
-
+            if(_addingModuleParts.Count > 0){ _createModuleParts(); }
 
         }
 
@@ -130,8 +122,9 @@ namespace ModuleManager
 
             GameObject tempModuleGO = Instantiate(_addingModuleParts.First(), transform.position, transform.rotation);
 
-            if(tempModuleGO.GetComponent<HeadModule>())
+            if(tempModuleGO.GetComponent<HeadModule>() && tempModuleGO.GetComponent<ModuleHealth>())
                 tempModuleGO.GetComponent<HeadModule>().moduleBuilder = this;
+                tempModuleGO.GetComponent<ModuleHealth>().onDie.AddListener(onGameOver);
 
             GameObject snakeBodyGO = moduleContainer.AddModule(tempModuleGO);
             _addingModuleParts.RemoveAt(0);

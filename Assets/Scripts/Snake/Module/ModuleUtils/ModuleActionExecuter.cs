@@ -7,38 +7,55 @@ public class ModuleActionExecuter : MonoBehaviour
 {
 
     public ModuleContainer moduleContainer;
-    public List<Coroutine> actionCoroutines;
+    private Dictionary<BlankModule, Coroutine> actionCoroutines = new Dictionary<BlankModule, Coroutine>();
 
-    private void _startAction(){
+    private void _startAction(List<BlankModule> modules){
 
-        //Debug.Log("Action birtch");
-        //#TODO _actionRepeater yaz
-
-        //Coroutine actionCoroutine = StartCoroutine();
-
+        foreach (BlankModule module in modules)
+        {
+            
+            Coroutine actionCoroutine = StartCoroutine(_actionRepeater(module));
+            actionCoroutines.Add(module, actionCoroutine);
+            
+        }
 
     }
 
-    private IEnumerator _actionRepeater(){
+    private void _stopAction(List<BlankModule> modules){
+
+        foreach (BlankModule module in modules)
+        {
+            if(actionCoroutines.ContainsKey(module)){
+
+                StopCoroutine(actionCoroutines[module]);
+                actionCoroutines.Remove(module);
+
+            }
+            
+        }
+
+    }
+
+    private IEnumerator _actionRepeater(BlankModule module){
 
         while(true){
 
-            
-
+            module.Action();
+            yield return new WaitForSeconds(module.ActionCooldown);
 
         }
 
     }
 
-
-    void Start()
+    void Awake() //En önce listenerler atanmalı. Yoksa ilk eklenen modülün aksiyonu çalışmıyor.
     {
 
         moduleContainer.onModuleCreation.AddListener( _startAction);
+        moduleContainer.onModuleDeletion.AddListener( _stopAction);
+
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         

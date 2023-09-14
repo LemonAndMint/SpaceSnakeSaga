@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(WeaponModule))]
 public class CannonRotate : MonoBehaviour
 {
     public WeaponModule weaponModule;

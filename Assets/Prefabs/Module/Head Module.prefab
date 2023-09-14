@@ -156,7 +156,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 0, g: 0.14216995, b: 1, a: 1}
   m_FlipX: 0
@@ -177,11 +177,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2001044173281918100}
+  - component: {fileID: -2551782298047782187}
   - component: {fileID: 4086606596766083223}
   - component: {fileID: 5869801314530163327}
   m_Layer: 0
-  m_Name: Head
-  m_TagString: Untagged
+  m_Name: Head Module
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -203,6 +204,23 @@ Transform:
   - {fileID: 68906869901846718}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-2551782298047782187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4516782991472251180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de920673b0ce531458f7793227ac94fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onDie:
+    m_PersistentCalls:
+      m_Calls: []
+  enemy: 1
+  _health: 10
 --- !u!114 &4086606596766083223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,7 +233,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 423fa8196b17e5a49ac2f6d1abccb671, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 0
   _actionCooldown: 0
   moduleBuilder: {fileID: 0}
 --- !u!61 &5869801314530163327

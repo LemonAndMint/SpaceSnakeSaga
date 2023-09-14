@@ -1,32 +1,23 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Module;
-using Unity.Mathematics;
 using System.Linq;
-using Unity.VisualScripting;
+using EntityEnum;
 
 public class WeaponModule : BlankModule
 {
     public float range = 10f;
-    public GameObject BulletPrefab;
-    public Transform CannonBarrelTransform;
+    public GameObject bulletPrefab;
+    public Transform cannonBarrelTransform;
+    public Entity enemy;
+
+    [SerializeField]private int _damageValue;
 
     private GameObject _currEnemy;
     public GameObject TargetedEnemy{
 
         get{ return _currEnemy; }
 
-        set{}
-
     }
-
-    private void Update() {
-        
-        Action();
-
-    }
-
 
     public override void Action()
     {
@@ -45,11 +36,12 @@ public class WeaponModule : BlankModule
 
             _currEnemy = tempEnemy;
 
-            /*GameObject bullet = Instantiate(BulletPrefab, CannonBarrelTransform.transform.position, Quaternion.identity);
+            GameObject bullet = Instantiate(bulletPrefab, cannonBarrelTransform.transform.position, Quaternion.identity);
             
             if(!bullet.GetComponent<Bullet>()){ bullet.AddComponent<Bullet>(); }
 
-            bullet.GetComponent<Bullet>().targetTransform = _currEnemy.transform;*/
+            bullet.GetComponent<Bullet>().targetLastPosition = _currEnemy.transform.position;
+            bullet.GetComponent<Bullet>().damage = _damageValue;
 
         }
 
@@ -69,7 +61,7 @@ public class WeaponModule : BlankModule
 
     private GameObject _getNearestEnemy(){ 
 
-        List<GameObject> enemies = GameObject.FindGameObjectsWithTag("Enemy").ToList();
+        List<GameObject> enemies = GameObject.FindGameObjectsWithTag(EntityUtil.EnumToString(enemy)).ToList();
         
         if(enemies == null){
 
@@ -79,7 +71,10 @@ public class WeaponModule : BlankModule
       
         List<GameObject> distanceList = enemies.OrderBy(enemyGO => Vector3.Distance(transform.position, enemyGO.transform.position)).ToList();
 
-        return distanceList.First();
+        if(distanceList != null && distanceList.Count > 0)
+            return distanceList.First();
+
+        return null;
        
     }
 

@@ -1,7 +1,10 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class UIManager : MonoBehaviour
+public class EnemyMovement : MonoBehaviour
 {
+    [SerializeField] private float _movementSpeed;
     // Start is called before the first frame update
     void Start()
     {
