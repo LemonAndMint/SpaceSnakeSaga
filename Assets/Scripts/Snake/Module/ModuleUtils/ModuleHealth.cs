@@ -14,17 +14,6 @@ public class ModuleHealth : MonoBehaviour
 
     public bool isCollisionProof;
 
-    private bool _isCreated = false;
-    
-    /// <summary>
-    /// Modülün yaratıldığını belirten <paramref name = "_isCreated"/> boolunu true yapar.
-    /// </summary>
-    public void ModuleCreated(){
-
-        _isCreated = true;
-
-    }
-
     private void Start() {
 
         _currentHealth = _health;
@@ -49,7 +38,6 @@ public class ModuleHealth : MonoBehaviour
     /// <param name="damage">Verilecek hasarın değeri.</param>
     public virtual void GetHit(int damage)
     {
-        if(!_isCreated){ Die(); }
 
         _currentHealth -= damage;
         _isDead();
@@ -63,9 +51,10 @@ public class ModuleHealth : MonoBehaviour
     }
 
     public virtual void OnTriggerEnter2D(Collider2D other) {
-        
+
         if(other.tag.Contains(EntityUtil.EnumToString(enemy)) && other.GetComponent<Bullet>()){
 
+            Debug.Log(gameObject.name);
             GetHit(other.GetComponent<Bullet>().GetDamage());
             Destroy(other.gameObject); //#FIXME ???? dogru mu 
 

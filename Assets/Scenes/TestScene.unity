@@ -1425,7 +1425,7 @@ MonoBehaviour:
   _distanceBetween: 0.25
   _addingModuleParts:
   - {fileID: 4516782991472251180, guid: 9953b2eae33683e459052b454b036c7e, type: 3}
-  - {fileID: 2588947826679329060, guid: d8c2e0389b136a94dac47eb92a692016, type: 3}
+  - {fileID: 8813219308427025834, guid: d1271bc54032554498ff2ff4c0d03977, type: 3}
 --- !u!114 &2019086440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1477,7 +1477,7 @@ MonoBehaviour:
   energyDatas:
   - {fileID: 11400000, guid: 6ac5f9c79431dba47b1ad0188d83c9c6, type: 2}
   - {fileID: 11400000, guid: 4353b43f1b9eb814286b4c2bb0d15c52, type: 2}
-  _moduleCreationSecond: 3
+  _moduleCreationSecond: 1000000000
 --- !u!1 &2060403160
 GameObject:
   m_ObjectHideFlags: 0

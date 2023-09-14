@@ -1,0 +1,17 @@
+---STANDART MODÜL OLUŞTURMA ADIMLARI---
+
+1- Modülde herhangi bir 2D Collider, trigger şeklinde olmalı.
+2- Tag - Player olarak değiştirilmeli.
+3- İstenilen modülün componenti atılmalı.
+4- ModuleHealth component atılmalı.
+4- Modüllerdeki Enemy enumu değiştirilmeli.
+
+---STANDART DÜŞMAN OLUŞTURMA ADIMLARI---
+
+1- EnemyBrain componenti atılmalı.
+2- ModuleHealth component atılmalı.
+3- EnemyMovement componenti atılmalı.
+4- Modülde herhangi bir 2D Collider, trigger şeklinde olmalı.
+5- Rigidbody2D atılmalı.
+6- Tag - Enemy olarak değiştirilmeli.
+7- Modüllerdeki Enemy enumu değiştirilmeli.

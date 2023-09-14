@@ -20,7 +20,6 @@ public class EnemyBrain : MonoBehaviour
         if(GetComponent<ModuleHealth>()){
 
             GetComponent<ModuleHealth>().onDie.AddListener(_stopRepeater);
-            GetComponent<ModuleHealth>().ModuleCreated();
 
         }
 

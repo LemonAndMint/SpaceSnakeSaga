@@ -99,7 +99,7 @@ namespace ModuleManager
 
             await Task.Delay(_moduleCreationSecond * 1000);
 
-            Destroy(snakeBodyGO.transform.GetChild(snakeBodyGO.transform.childCount));
+            Destroy(snakeBodyGO.transform.GetChild(snakeBodyGO.transform.childCount - 1).gameObject);
 
             GameObject moduleGO = _createModule(_moduleType);
 
@@ -143,7 +143,6 @@ namespace ModuleManager
             if(moduleGO.GetComponent<ModuleHealth>()){
              
                 moduleGO.GetComponentInChildren<ModuleHealth>().onDie.AddListener(RemoveModuleGO);
-                moduleGO.GetComponent<ModuleHealth>().ModuleCreated();
 
             }
 
