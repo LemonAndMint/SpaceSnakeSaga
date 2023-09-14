@@ -18,7 +18,9 @@ namespace ModuleManager
         /// </summary>
         public UnityEvent<List<BlankModule>> onModuleDeletion = new UnityEvent<List<BlankModule>>();
 
-        public GameObject SnakePartPrefb;
+        public GameObject snakePartPrefb;
+        public GameObject moduleCreationPrefb;
+        
         /// <summary>
         /// !Kesinlikle içinde bulundurduklaro GameObject'ler null olmamalı!
         /// </summary>
@@ -59,9 +61,12 @@ namespace ModuleManager
             if(_moduleType == null){
 
                 GameObject snakeBodyGO = _createSnakeBody();
+                GameObject moduleCreationAnimation = _createModuleCreationAnimation();
 
                 _changeModuleType(type);
                 _modules.Add(snakeBodyGO);
+
+                moduleCreationAnimation.transform.SetParent(snakeBodyGO.transform);
 
                 _waitForConstruct(snakeBodyGO);
 
@@ -79,6 +84,12 @@ namespace ModuleManager
 
         }
 
+        private GameObject _createModuleCreationAnimation(){
+
+            return Instantiate(moduleCreationPrefb, Vector3.zero, Quaternion.identity);
+
+        }
+
         /// <summary>
         /// <paramref name="_moduleCreationSecond"/> saniye bekler. Modül oluşumu sırasında modül tipi birden fazla kere değişebileceği için bekleme süresi verildi.
         /// </summary>
@@ -87,6 +98,8 @@ namespace ModuleManager
         private async Task _waitForConstruct(GameObject snakeBodyGO){
 
             await Task.Delay(_moduleCreationSecond * 1000);
+
+            Destroy(snakeBodyGO.transform.GetChild(snakeBodyGO.transform.childCount));
 
             GameObject moduleGO = _createModule(_moduleType);
 
@@ -98,13 +111,7 @@ namespace ModuleManager
 
             _moduleType = null;
 
-            //Sadece BlankModule olan modüllerin aksiyonlarının otomatik olarak gerçekleştirilmesi için.
-            if(moduleGO.GetComponentsInChildren<BlankModule>().Count() > 0 && moduleGO.GetComponentsInChildren<BlankPassiveModule>().Count() < 0)
-                onModuleCreation?.Invoke(moduleGO.GetComponentsInChildren<BlankModule>().ToList());
-
-            //Modül oluşturulurken tek bir canı vardır. Oluşturulduktan sonra orjinal canına döner.
-            if(moduleGO.GetComponentInChildren<ModuleHealth>())
-                moduleGO.GetComponentInChildren<ModuleHealth>().ModuleCreated();
+            _moduleSets(moduleGO);
 
         }
 
@@ -120,13 +127,26 @@ namespace ModuleManager
             _modules.Add(snakeBodyGO);
             moduleGO.transform.SetParent(snakeBodyGO.transform);
 
-            if(moduleGO.GetComponentsInChildren<BlankModule>().Count() > 0)
-                onModuleCreation?.Invoke(moduleGO.GetComponentsInChildren<BlankModule>().ToList());
-
-            if(moduleGO.GetComponentInChildren<ModuleHealth>())
-                moduleGO.GetComponentInChildren<ModuleHealth>().onDie.AddListener(RemoveModuleGO);
+            _moduleSets(moduleGO);
 
             return snakeBodyGO;
+
+        }
+
+        private void _moduleSets(GameObject moduleGO){
+
+            //Sadece BlankModule olan modüllerin aksiyonlarının otomatik olarak gerçekleştirilmesi için.
+            if(moduleGO.GetComponentsInChildren<BlankModule>().Count() > 0 && moduleGO.GetComponentsInChildren<BlankPassiveModule>().Count() <= 0)
+                onModuleCreation?.Invoke(moduleGO.GetComponentsInChildren<BlankModule>().ToList());
+
+             //Modül oluşturulurken tek bir canı vardır. Oluşturulduktan sonra orjinal canına döner.
+            if(moduleGO.GetComponent<ModuleHealth>()){
+             
+                moduleGO.GetComponentInChildren<ModuleHealth>().onDie.AddListener(RemoveModuleGO);
+                moduleGO.GetComponent<ModuleHealth>().ModuleCreated();
+
+            }
+
 
         }
 
@@ -157,7 +177,7 @@ namespace ModuleManager
 
         private GameObject _createSnakeBody(){
 
-            GameObject snakeBodyGO = Instantiate(SnakePartPrefb, transform.position, transform.rotation);
+            GameObject snakeBodyGO = Instantiate(snakePartPrefb, transform.position, transform.rotation);
 
             if (!snakeBodyGO.GetComponent<MarkerStorage>()) { snakeBodyGO.AddComponent<MarkerStorage>(); }
 

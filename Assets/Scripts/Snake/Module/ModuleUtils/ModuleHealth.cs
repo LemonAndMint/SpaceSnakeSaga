@@ -12,7 +12,7 @@ public class ModuleHealth : MonoBehaviour
     [SerializeField] private int _health;
     private int _currentHealth;
 
-    public bool die = false;
+    public bool isCollisionProof;
 
     private bool _isCreated = false;
     
@@ -34,11 +34,6 @@ public class ModuleHealth : MonoBehaviour
     private void Update() {
         
         _isDead();
-        if(die){
-
-            Die();
-
-        }
 
     }
 
@@ -75,6 +70,10 @@ public class ModuleHealth : MonoBehaviour
             Destroy(other.gameObject); //#FIXME ???? dogru mu 
 
         }
+
+        //Eğer çarptığı obje bir modül/ düşman/ engel ise direkt bulunduğumuz modülü/ düşmanı yoket
+        if(!isCollisionProof && other.GetComponentInChildren<ModuleHealth>())
+            Die();
 
     }
 }

@@ -69,6 +69,7 @@ MonoBehaviour:
       m_Calls: []
   enemy: 0
   _health: 3
+  isCollisionProof: 0
 --- !u!114 &7531982122359470848
 MonoBehaviour:
   m_ObjectHideFlags: 0

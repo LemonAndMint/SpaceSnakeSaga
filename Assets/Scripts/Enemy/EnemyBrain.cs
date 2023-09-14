@@ -16,7 +16,13 @@ public class EnemyBrain : MonoBehaviour
             this.AddComponent<WeaponModule>();
 
         actionRepeater = StartCoroutine(_actionRepeater());
-        GetComponentInChildren<ModuleHealth>().onDie.AddListener(_stopRepeater);
+        
+        if(GetComponent<ModuleHealth>()){
+
+            GetComponent<ModuleHealth>().onDie.AddListener(_stopRepeater);
+            GetComponent<ModuleHealth>().ModuleCreated();
+
+        }
 
     }
 

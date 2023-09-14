@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5569391712973961308}
   - component: {fileID: -417937932559390133}
-  - component: {fileID: 6492655580108154839}
+  - component: {fileID: 922558721716119924}
   m_Layer: 6
   m_Name: Weapon Module
   m_TagString: Player
@@ -53,8 +53,9 @@ MonoBehaviour:
       m_Calls: []
   enemy: 1
   _health: 10
---- !u!61 &6492655580108154839
-BoxCollider2D:
+  isCollisionProof: 0
+--- !u!58 &922558721716119924
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -86,18 +87,8 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6, y: 0.6}
-  m_EdgeRadius: 0
+  m_Radius: 0.25
 --- !u!1 &5996307169050732241
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,6 +187,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1431934570787609159, guid: 19410eaac693bed4090c01cf58c5f3b1, type: 3}
       propertyPath: enemy
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1431934570787609159, guid: 19410eaac693bed4090c01cf58c5f3b1, type: 3}
+      propertyPath: _damageValue
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1431934570787609159, guid: 19410eaac693bed4090c01cf58c5f3b1, type: 3}
@@ -316,6 +311,10 @@ PrefabInstance:
       propertyPath: BulletPrefab
       value: 
       objectReference: {fileID: 3489345700171343348, guid: debb220fc8e031346bf7f8079ad5e702, type: 3}
+    - target: {fileID: 7980742534426533358, guid: 560bc146ff7d8e747bc1a54c44e61398, type: 3}
+      propertyPath: _damageValue
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7980742534426533358, guid: 560bc146ff7d8e747bc1a54c44e61398, type: 3}
       propertyPath: bulletPrefab
       value: 
