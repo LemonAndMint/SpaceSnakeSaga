@@ -63,6 +63,8 @@ namespace ModuleManager
                 GameObject snakeBodyGO = _createSnakeBody();
                 GameObject moduleCreationAnimation = _createModuleCreationAnimation();
 
+                _moduleSets(moduleCreationAnimation);
+
                 _changeModuleType(type);
                 _modules.Add(snakeBodyGO);
 
@@ -146,7 +148,6 @@ namespace ModuleManager
 
             }
 
-
         }
 
         private GameObject _createModule(Type moduleType){
@@ -166,7 +167,6 @@ namespace ModuleManager
             return Instantiate(moduleGOPrefb, Vector3.zero, Quaternion.identity);
 
         } 
-
 
         private void _changeModuleType(Type newModuleType){
 
@@ -209,14 +209,14 @@ namespace ModuleManager
         /// <summary>
         /// Snake'teki modülleri <paramref name="_modules"/> listesindeki GameObject'lerine göre yokeder.
         /// </summary>
-        /// <param name="moduleGameObject"></param>
-        public void RemoveModuleGO(GameObject moduleGameObject){
+        /// <param name="snakeBodyGO"></param>
+        public void RemoveModuleGO(GameObject snakeBodyGO){
 
-            onModuleDeletion?.Invoke(moduleGameObject.GetComponentsInChildren<BlankModule>().ToList());
+            onModuleDeletion?.Invoke(snakeBodyGO.GetComponentsInChildren<BlankModule>().ToList());
 
-            Destroy(moduleGameObject);
+            Destroy(snakeBodyGO);
 
-            _modules[_modules.IndexOf(moduleGameObject)] = null;
+            _modules[_modules.IndexOf(snakeBodyGO)] = null;
             _removeOtherModules();
             
         }

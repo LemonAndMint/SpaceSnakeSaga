@@ -28,7 +28,7 @@ public class ModuleHealth : MonoBehaviour
 
     private void _isDead(){
 
-        if(_currentHealth < 0){ Die(); }
+        if(_currentHealth <= 0){ Die(); }
 
     }
 
