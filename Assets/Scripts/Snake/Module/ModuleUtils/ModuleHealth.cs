@@ -17,7 +17,7 @@ public class ModuleHealth : MonoBehaviour
     private bool _isCreated = false;
     
     /// <summary>
-    /// Modülün yaratıldığını belirten <paramref name/>
+    /// Modülün yaratıldığını belirten <paramref name = "_isCreated"/> boolunu true yapar.
     /// </summary>
     public void ModuleCreated(){
 
