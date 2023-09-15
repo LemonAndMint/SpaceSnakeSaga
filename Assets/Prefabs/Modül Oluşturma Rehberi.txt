@@ -4,7 +4,8 @@
 2- Tag - Player olarak değiştirilmeli.
 3- İstenilen modülün componenti atılmalı.
 4- ModuleHealth component atılmalı.
-4- Modüllerdeki Enemy enumu değiştirilmeli.
+5- Modüllerdeki Enemy enumu değiştirilmeli.
+6- ModuleBuilder/_getType methodundaki switch içerisine eklenecek tip eklenmeli.
 
 ---STANDART DÜŞMAN OLUŞTURMA ADIMLARI---
 

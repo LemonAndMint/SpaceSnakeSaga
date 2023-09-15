@@ -50,7 +50,7 @@ public class ModuleActionExecuter : MonoBehaviour
     void Awake() //En önce listenerler atanmalı. Yoksa ilk eklenen modülün aksiyonu çalışmıyor.
     {
 
-        moduleContainer.onModuleCreation.AddListener( _startAction);
+        moduleContainer.onActionModuleCreation.AddListener( _startAction);
         moduleContainer.onModuleDeletion.AddListener( _stopAction);
 
 

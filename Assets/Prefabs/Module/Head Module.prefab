@@ -220,7 +220,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   enemy: 1
-  _health: 10
+  _health: 5
   isCollisionProof: 0
 --- !u!114 &4086606596766083223
 MonoBehaviour:

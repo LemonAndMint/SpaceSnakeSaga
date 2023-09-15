@@ -46,6 +46,7 @@ public class ModuleHealth : MonoBehaviour
 
     public virtual void Die()
     {
+        
         onDie?.Invoke(this.transform.root.gameObject);
 
     }

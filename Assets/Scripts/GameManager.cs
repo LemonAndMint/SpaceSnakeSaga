@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public ModuleBuilder moduleBuilder;
 
-    private void Start() {
+    private void Awake() {
         
         moduleBuilder.onGameOver = (x) => GameOver();
 
