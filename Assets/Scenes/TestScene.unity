@@ -1384,8 +1384,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2019086438}
   - component: {fileID: 2019086442}
-  - component: {fileID: 2019086440}
   - component: {fileID: 2019086439}
+  - component: {fileID: 2019086440}
   - component: {fileID: 2019086441}
   m_Layer: 0
   m_Name: Snake Manager
@@ -1477,7 +1477,7 @@ MonoBehaviour:
   energyDatas:
   - {fileID: 11400000, guid: 6ac5f9c79431dba47b1ad0188d83c9c6, type: 2}
   - {fileID: 11400000, guid: 4353b43f1b9eb814286b4c2bb0d15c52, type: 2}
-  _moduleCreationSecond: 1000000000
+  _moduleCreationSecond: 3
 --- !u!1 &2060403160
 GameObject:
   m_ObjectHideFlags: 0

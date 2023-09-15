@@ -18,6 +18,8 @@ namespace ModuleManager
         /// </summary>
         public UnityEvent<List<BlankModule>> onModuleDeletion = new UnityEvent<List<BlankModule>>();
 
+        public ModuleBuilder moduleBuilder;
+
         public GameObject snakePartPrefb;
         public GameObject moduleCreationPrefb;
         
@@ -57,7 +59,6 @@ namespace ModuleManager
         /// <returns>Snake GameObject parçası.</returns>
         public GameObject AddModule(Type type){
 
-
             if(_moduleType == null){
 
                 GameObject snakeBodyGO = _createSnakeBody();
@@ -68,7 +69,7 @@ namespace ModuleManager
                 _changeModuleType(type);
                 _modules.Add(snakeBodyGO);
 
-                moduleCreationAnimation.transform.SetParent(snakeBodyGO.transform);
+                moduleCreationAnimation.transform.SetParent(snakeBodyGO.transform, false);
 
                 _waitForConstruct(snakeBodyGO);
 
@@ -82,7 +83,6 @@ namespace ModuleManager
             }
 
             return null;
-
 
         }
 
@@ -127,7 +127,7 @@ namespace ModuleManager
             GameObject snakeBodyGO = _createSnakeBody();
 
             _modules.Add(snakeBodyGO);
-            moduleGO.transform.SetParent(snakeBodyGO.transform);
+            moduleGO.transform.SetParent(snakeBodyGO.transform, false);
 
             _moduleSets(moduleGO);
 
@@ -142,11 +142,8 @@ namespace ModuleManager
                 onModuleCreation?.Invoke(moduleGO.GetComponentsInChildren<BlankModule>().ToList());
 
              //Modül oluşturulurken tek bir canı vardır. Oluşturulduktan sonra orjinal canına döner.
-            if(moduleGO.GetComponent<ModuleHealth>()){
-             
+            if(moduleGO.GetComponent<ModuleHealth>())
                 moduleGO.GetComponentInChildren<ModuleHealth>().onDie.AddListener(RemoveModuleGO);
-
-            }
 
         }
 
@@ -176,7 +173,13 @@ namespace ModuleManager
 
         private GameObject _createSnakeBody(){
 
-            GameObject snakeBodyGO = Instantiate(snakePartPrefb, transform.position, transform.rotation);
+            Vector3 instantiatePoint = transform.position;
+            /*if(_modules.Count > 0){ //#FIXME 
+                instantiatePoint = _modules.Last().GetComponent<MarkerStorage>().markerList.Last().position;
+                _modules.Last().GetComponent<MarkerStorage>().ClearMarkerList();
+            }*/ 
+
+            GameObject snakeBodyGO = Instantiate(snakePartPrefb, instantiatePoint, transform.rotation);
 
             if (!snakeBodyGO.GetComponent<MarkerStorage>()) { snakeBodyGO.AddComponent<MarkerStorage>(); }
 

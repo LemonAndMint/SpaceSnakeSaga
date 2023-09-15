@@ -9,7 +9,7 @@ namespace ModuleManager
 
     //https://www.youtube.com/watch?v=sPlcecIh3ik&ab_channel=RandomArtAttack
     //https://www.youtube.com/watch?v=A-SZDQIDXXI&ab_channel=RandomArtAttack
-    
+
     [RequireComponent(typeof(ModuleContainer))]
     public class ModuleBuilder : MonoBehaviour
     {
@@ -122,9 +122,12 @@ namespace ModuleManager
 
             GameObject tempModuleGO = Instantiate(_addingModuleParts.First(), transform.position, transform.rotation);
 
-            if(tempModuleGO.GetComponent<HeadModule>() && tempModuleGO.GetComponent<ModuleHealth>())
+            if(tempModuleGO.GetComponent<HeadModule>() && tempModuleGO.GetComponent<ModuleHealth>()){
+                
                 tempModuleGO.GetComponent<HeadModule>().moduleBuilder = this;
                 tempModuleGO.GetComponent<ModuleHealth>().onDie.AddListener(onGameOver);
+                
+            }
 
             GameObject snakeBodyGO = moduleContainer.AddModule(tempModuleGO);
             _addingModuleParts.RemoveAt(0);

@@ -43,6 +43,7 @@ public class MarkerStorage : MonoBehaviour
     {
 
         markerList.Clear();
+        //markerList.RemoveRange()
         markerList.Add(new Marker(transform.position, transform.rotation));
 
     }

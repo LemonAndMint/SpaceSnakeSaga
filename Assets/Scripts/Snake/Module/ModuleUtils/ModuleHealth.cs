@@ -54,7 +54,6 @@ public class ModuleHealth : MonoBehaviour
 
         if(other.tag.Contains(EntityUtil.EnumToString(enemy)) && other.GetComponent<Bullet>()){
 
-            Debug.Log(gameObject.name);
             GetHit(other.GetComponent<Bullet>().GetDamage());
             Destroy(other.gameObject); //#FIXME ???? dogru mu 
 
