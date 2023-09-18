@@ -38,6 +38,7 @@ public class EnemyMovement : MonoBehaviour
     private void FixedUpdate() {
         
         _move();
+        _rotate();
 
     }
 
@@ -95,5 +96,38 @@ public class EnemyMovement : MonoBehaviour
 
     }
 
+    void _rotate(){
+
+        if( weaponModule.TargetedEnemy != null ){
+
+            _rotateTo(weaponModule.TargetedEnemy.transform.position);
+
+        }
+        else{
+
+            _rotateTo(transform.position + directionVector);
+
+        }
+
+        _resetRotation();
+
+    }
+
+    private void _rotateTo(Vector3 rotatePoint){ //https://youtu.be/1Oda2M4BoNs?t=86
+
+        Vector3 look = transform.InverseTransformPoint( rotatePoint );
+
+        //Cannonun sagda ya da solda olup olmadigi cannonun y pozisyonunun isaretine gore belirlendik.
+        //Sag cannon asagi tarafta kaldigindan aci degerinin 90 derece ile toplanmasi gerekirken
+        //Sol caoonon yukari tarafta kaldigindan aci degerinin 90 derece ile cikartilmasi gerek.
+        //https://gamedev.stackexchange.com/questions/159581/why-do-i-need-to-offset-my-aim-rotation-angle-by-90-degrees#:~:text=1%20Answer&text=As%20per%20the%20unit%20circle,%2C%20and%20%2D90%20at%20right.
+
+        float angle = Mathf.Atan2(look.y, look.x) * Mathf.Rad2Deg - 90 * Mathf.Sign(transform.localPosition.y);
+
+        transform.Rotate(0 , 0, angle); 
+
+    }
+
+    private void _resetRotation(){ transform.Rotate( 0, 0, 0 ); }
     
 }

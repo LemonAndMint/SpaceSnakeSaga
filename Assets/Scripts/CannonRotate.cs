@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(WeaponModule))]
+[RequireComponent(typeof(WeaponModule))] //#FIXME class genelleştirmesi yap
 public class CannonRotate : MonoBehaviour
 {
     public WeaponModule weaponModule;
@@ -25,7 +25,7 @@ public class CannonRotate : MonoBehaviour
 
     }
 
-    private void _rotateTo(){ //https://youtu.be/1Oda2M4BoNs?t=86 / Corpyr.
+    private void _rotateTo(){ //https://youtu.be/1Oda2M4BoNs?t=86
 
         Vector3 look = transform.InverseTransformPoint( weaponModule.TargetedEnemy.transform.position );
 
