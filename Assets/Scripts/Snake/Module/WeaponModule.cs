@@ -30,8 +30,6 @@ public class WeaponModule : BlankModule
 
         GameObject tempEnemy = _getNearestEnemy();
 
-        _currEnemy = tempEnemy;
-
         if(_isInRange(tempEnemy)){
 
             _currEnemy = tempEnemy;
@@ -44,12 +42,17 @@ public class WeaponModule : BlankModule
             bullet.GetComponent<Bullet>().damage = _damageValue;
 
         }
+        else{
+
+            _currEnemy = null;
+
+        }
 
     }
 
     private bool _isInRange(GameObject enemy){
 
-        if( enemy != null && Vector3.Distance( transform.position, enemy.transform.position) < range ){
+        if( enemy != null && Vector3.Distance(transform.position, enemy.transform.position) < range ){
 
             return true;
 

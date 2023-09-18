@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
+using System.Collections;
 
 namespace ModuleManager
 {
@@ -16,6 +17,7 @@ namespace ModuleManager
     {
 
         public ModuleContainer moduleContainer;
+        public CameraActions cameraActions;
 
         public UnityAction<GameObject> onGameOver;
         
@@ -121,6 +123,9 @@ namespace ModuleManager
 
             _moduleType = null;
 
+            if(moduleContainer.Count % 5 == 0)
+                cameraActions.ZoomOut();
+
         }
 
         private Type _getType(string typeName){
@@ -199,6 +204,8 @@ namespace ModuleManager
             moduleGO.transform.SetParent(snakeBodyGO.transform, false);
             _addingModuleParts.RemoveAt(0);
 
+            cameraActions.ZoomOut();
+
         }
 
         private GameObject _createSnakeBody(){
@@ -264,11 +271,14 @@ namespace ModuleManager
                 
                 moduleGO.GetComponent<HeadModule>().moduleBuilder = this;
                 moduleGO.GetComponent<ModuleHealth>().onDie.AddListener(onGameOver);
+
+                cameraActions.virtualCamera.Follow = moduleGO.transform; //Kamera takibi
                 
             }
-            
 
         }
+
+        
 
     }
 
