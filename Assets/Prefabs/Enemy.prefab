@@ -51,7 +51,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponModule: {fileID: 4171534923332684607}
+  enemyMovement: {fileID: 7531982122359470848}
+  raysToShoot: 6
   _actionCooldown: 3
+  _detectCooldown: 3
 --- !u!114 &7549144093982011552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82,7 +85,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4b5e516a7a01ab43ac4a59277bb57f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementSpeed: 2
+  _speed: 180
+  targetDirect: {x: 0, y: 0, z: 0}
 --- !u!61 &8458911055226778044
 BoxCollider2D:
   m_ObjectHideFlags: 0

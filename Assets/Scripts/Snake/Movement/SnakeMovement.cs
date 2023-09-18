@@ -26,11 +26,11 @@ public class SnakeMovement : MonoBehaviour
     void FixedUpdate()
     {
         
-        Movement();
+        _move();
 
     }
 
-    void Movement()
+    void _move()
     {
         if(moduleContainer.Count > 0)
         {

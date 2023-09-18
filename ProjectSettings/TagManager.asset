@@ -9,6 +9,7 @@ TagManager:
   - Standart Energy
   - Enemy Bullet
   - Player Bullet
+  - General Bullet
   layers:
   - Default
   - TransparentFX

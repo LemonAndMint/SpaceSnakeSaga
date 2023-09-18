@@ -53,7 +53,7 @@ public class ModuleHealth : MonoBehaviour
 
     public virtual void OnTriggerEnter2D(Collider2D other) {
 
-        if(other.tag.Contains(EntityUtil.EnumToString(enemy)) && other.GetComponent<Bullet>()){
+        if((other.tag.Contains(EntityUtil.EnumToString(enemy)) || other.tag.Contains("General")) && other.GetComponent<Bullet>()){
 
             GetHit(other.GetComponent<Bullet>().GetDamage());
             Destroy(other.gameObject); //#FIXME ???? dogru mu 
