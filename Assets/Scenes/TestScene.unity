@@ -540,6 +540,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 582751896883749370, guid: 88266591684c0f949ab694c2be779a8a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2423782389340808640, guid: 88266591684c0f949ab694c2be779a8a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.9
@@ -579,6 +583,22 @@ PrefabInstance:
     - target: {fileID: 2423782389340808640, guid: 88266591684c0f949ab694c2be779a8a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4374891690855752703, guid: 88266591684c0f949ab694c2be779a8a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.522
+      objectReference: {fileID: 0}
+    - target: {fileID: 6496292966721345696, guid: 88266591684c0f949ab694c2be779a8a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.497
+      objectReference: {fileID: 0}
+    - target: {fileID: 7549144093982011552, guid: 88266591684c0f949ab694c2be779a8a, type: 3}
+      propertyPath: _health
+      value: 782
+      objectReference: {fileID: 0}
+    - target: {fileID: 8871002332538427438, guid: 88266591684c0f949ab694c2be779a8a, type: 3}
+      propertyPath: _detectRadius
+      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1373,6 +1393,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moduleBuilder: {fileID: 2019086439}
+  enemyGOPrefb: {fileID: 0}
+  energyGOPrefbList: []
 --- !u!1001 &1812138070
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1484,7 +1506,7 @@ MonoBehaviour:
   moduleContainer: {fileID: 2019086442}
   cameraActions: {fileID: 1696504884}
   _distanceBetween: 0.25
-  _moduleCreationSecond: 3
+  _moduleCreationSecond: 5
   _addingModuleParts:
   - {fileID: 4516782991472251180, guid: 9953b2eae33683e459052b454b036c7e, type: 3}
   energyDatas:

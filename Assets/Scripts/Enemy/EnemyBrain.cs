@@ -12,6 +12,7 @@ public class EnemyBrain : MonoBehaviour
     [SerializeField]private int raysToShoot = 6;
     [SerializeField]private float _actionCooldown;
     [SerializeField]private float _detectCooldown;
+    [SerializeField]private float _detectRadius = 2f;
 
     private Coroutine actionRepeater;
     private Coroutine detectRepeater;
@@ -78,12 +79,14 @@ public class EnemyBrain : MonoBehaviour
 
             angle += 2 * Mathf.PI / raysToShoot;
 
-            Vector3 startPoint = new Vector3(transform.position.x + x * 0.35f, transform.position.y + y * 0.35f, 0);
-            Vector3 dir = new Vector3(x * 2, y * 2, 0);
+            float startDistance = (GetComponent<BoxCollider2D>().size.x * Mathf.Sqrt(2) / 2f) + 0.05f;
+
+            Vector3 startPoint = new Vector3(transform.position.x + x * startDistance, transform.position.y + y * startDistance, 0);
+            Vector3 dir = new Vector3(x * _detectRadius, y * _detectRadius, 0);
             
             Debug.DrawRay(startPoint, dir, Color.red);
 
-            if(Physics2D.Raycast(startPoint, dir, 2f)) {
+            if(Physics2D.Raycast(startPoint, dir, _detectRadius)) {
 
                 Debug.DrawRay(startPoint, dir, Color.blue);
                 directions.Add( -1 * dir );

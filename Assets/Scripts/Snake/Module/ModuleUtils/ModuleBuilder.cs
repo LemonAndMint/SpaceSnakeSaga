@@ -230,7 +230,17 @@ namespace ModuleManager
 
         private GameObject _createModuleCreationAnimation(){
 
-            return Instantiate(moduleCreationPrefb, Vector3.zero, Quaternion.identity);
+            GameObject moduleCreatGO = Instantiate(moduleCreationPrefb, Vector3.zero, Quaternion.identity);
+
+            if(moduleCreatGO.GetComponentInChildren<Animator>()){
+
+                float animationSpeed = moduleCreatGO.GetComponentInChildren<Animator>().GetCurrentAnimatorClipInfo(0)[0].clip.length;
+
+                moduleCreatGO.GetComponentInChildren<Animator>().SetFloat("Speed", animationSpeed / _moduleCreationSecond);
+
+            }
+
+            return moduleCreatGO;
 
         }
 
