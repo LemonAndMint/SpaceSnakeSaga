@@ -96,6 +96,17 @@ public class EntityBuilder : MonoBehaviour
 
     }
 
+    public void RepositionEntities(){
+
+        foreach (GameObject entity in _entityIngameGOList)
+        {
+            
+            ChangePosition(entity);
+
+        }
+
+    }
+
     public void ChangePosition(GameObject entityGO){
 
         _setRandomPosition(entityGO.transform);
@@ -156,7 +167,7 @@ public class EntityBuilder : MonoBehaviour
     }
 
     //Enemy için can modülündeki onDie delegate ayarlanır. 
-    private void _addDieListener(ModuleHealth entityHealth){
+    private void _addDieListener(ModuleHealth entityHealth){ //#FIXME ?????
 
         entityHealth.onDie.AddListener(ChangePosition);
         entityHealth.onDie.AddListener( (GameObject x) => entityHealth.Restore());

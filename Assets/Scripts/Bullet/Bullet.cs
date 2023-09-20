@@ -8,6 +8,12 @@ public class Bullet : MonoBehaviour
 
     public int GetDamage(){ return damage; }
 
+    private void Start() {
+        
+        transform.right = targetLastPosition - transform.position;
+
+    }
+
     void Update()
     {
         

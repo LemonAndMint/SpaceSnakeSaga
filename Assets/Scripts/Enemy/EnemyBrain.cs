@@ -6,7 +6,7 @@ using UnityEngine;
 public class EnemyBrain : MonoBehaviour
 {
     
-    public WeaponModule weaponModule;
+    public List<WeaponModule> weaponModuleList;
     public EnemyMovement enemyMovement;
 
     [SerializeField]private int raysToShoot = 6;
@@ -14,31 +14,26 @@ public class EnemyBrain : MonoBehaviour
     [SerializeField]private float _detectCooldown;
     [SerializeField]private float _detectRadius = 2f;
 
-    private Coroutine actionRepeater;
-    private Coroutine detectRepeater;
-
     void Start()
     {
+
+        //_actionCooldown = Random.Range(_actionCooldown, _actionCooldown)
         
-        if(weaponModule == null)
-            this.AddComponent<WeaponModule>();
-
-        actionRepeater = StartCoroutine(_actionRepeater());
-        detectRepeater = StartCoroutine(_detectRepeater());
+        StartCoroutine(_actionRepeater());
+        StartCoroutine(_detectRepeater());
         
-        if(GetComponent<ModuleHealth>()){
-
-            //GetComponent<ModuleHealth>().onDie.AddListener(_stopRepeaters);
-
-        }
-
     }
 
     private IEnumerator _actionRepeater(){
 
         while(true){
 
-            weaponModule.Action();
+            foreach (WeaponModule weaponModule in weaponModuleList)
+            {
+
+                weaponModule.Action();
+                
+            }
             yield return new WaitForSeconds(_actionCooldown);
 
         }
@@ -55,15 +50,6 @@ public class EnemyBrain : MonoBehaviour
         }
 
     }
-
-    /*private void _stopRepeaters(GameObject modelGameObject){
-
-        StopCoroutine(actionRepeater);
-        StopCoroutine(detectRepeater);
-
-        Destroy(modelGameObject);
-
-    }*/
 
     //https://discussions.unity.com/t/raycasting-around-an-object-in-360-degrees/72772
     private void _detectEnviroment(){
@@ -84,11 +70,8 @@ public class EnemyBrain : MonoBehaviour
             Vector3 startPoint = new Vector3(transform.position.x + x * startDistance, transform.position.y + y * startDistance, 0);
             Vector3 dir = new Vector3(x * _detectRadius, y * _detectRadius, 0);
             
-            Debug.DrawRay(startPoint, dir, Color.red);
-
             if(Physics2D.Raycast(startPoint, dir, _detectRadius)) {
 
-                Debug.DrawRay(startPoint, dir, Color.blue);
                 directions.Add( -1 * dir );
 
             }
@@ -107,7 +90,6 @@ public class EnemyBrain : MonoBehaviour
         }
 
         enemyMovement.targetDirect = moveDirection;
-        Debug.DrawRay(transform.position, moveDirection, Color.green);
 
     }
 

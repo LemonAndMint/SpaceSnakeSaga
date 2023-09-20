@@ -275,6 +275,8 @@ namespace ModuleManager
             //Modül oluşturulurken tek bir canı vardır. Oluşturulduktan sonra orjinal canına döner.
             if(moduleGO.GetComponent<ModuleHealth>())
                 moduleGO.GetComponentInChildren<ModuleHealth>().onDie.AddListener(moduleContainer.RemoveModuleGO);
+                moduleGO.GetComponentInChildren<ModuleHealth>().onGetHit.AddListener( (GameObject x) => CameraActions.Instance.Shake() );
+
 
             //Head modülü için özel atamalar.
             if(moduleGO.GetComponent<HeadModule>() && moduleGO.GetComponent<ModuleHealth>()){

@@ -1,22 +1,29 @@
+using System.Collections.Generic;
 using EntityEnum;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class ModuleHealth : MonoBehaviour
 {
+    public List<SpriteRenderer> GFXList;
+
     /// <summary>
     /// Parametre olarak yok edilen modülün GameObjecti gönderilir.
     /// </summary>
     public UnityEvent<GameObject> onDie = new UnityEvent<GameObject>();
+    public UnityEvent<GameObject> onGetHit = new UnityEvent<GameObject>();
     [SerializeField] private Entity enemy; 
     [SerializeField] private int _health;
     private int _currentHealth;
+    private float _changeColorAmount;
 
     public bool isCollisionProof;
 
     private void Start() {
 
         Restore();
+        _changeColorAmount = 1 / (float)_health;
+        
     
     }
 
@@ -40,7 +47,13 @@ public class ModuleHealth : MonoBehaviour
     {
 
         _currentHealth -= damage;
-        _isDead();
+
+        foreach (SpriteRenderer GFX in GFXList)
+        {
+            GFX.color = Color.Lerp(GFX.color, Color.red, _changeColorAmount);
+        }
+
+        onGetHit?.Invoke(this.transform.root.gameObject);
 
     }
 
@@ -54,6 +67,10 @@ public class ModuleHealth : MonoBehaviour
     public void Restore(){
 
         _currentHealth = _health;
+        foreach (SpriteRenderer GFX in GFXList)
+        {
+            GFX.color = Color.white;
+        }
 
     }
 

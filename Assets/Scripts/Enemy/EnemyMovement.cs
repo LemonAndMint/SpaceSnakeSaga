@@ -122,7 +122,7 @@ public class EnemyMovement : MonoBehaviour
         //Sol caoonon yukari tarafta kaldigindan aci degerinin 90 derece ile cikartilmasi gerek.
         //https://gamedev.stackexchange.com/questions/159581/why-do-i-need-to-offset-my-aim-rotation-angle-by-90-degrees#:~:text=1%20Answer&text=As%20per%20the%20unit%20circle,%2C%20and%20%2D90%20at%20right.
 
-        float angle = Mathf.Atan2(look.y, look.x) * Mathf.Rad2Deg - 90 * Mathf.Sign(transform.localPosition.y);
+        float angle = Mathf.Atan2(look.y, look.x) * Mathf.Rad2Deg + 90;
 
         transform.Rotate(0 , 0, angle); 
 

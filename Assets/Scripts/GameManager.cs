@@ -6,21 +6,15 @@ public class GameManager : MonoBehaviour
 {
     public CameraActions cameraActions;
     public GameObject snakeManagerPrefb;
-
-    public static bool isDone = false;
+    public UIManager uiManager;
 
     private ModuleBuilder _moduleBuilder;
     private GameObject _snakeGO = null;
+    private bool firstTime = true;
 
     public void StartNewGame(){
 
         StartCoroutine(_constructGame());
-
-    }
-
-    public void EndGame(){
-
-
 
     }
 
@@ -40,13 +34,27 @@ public class GameManager : MonoBehaviour
         yield return new WaitUntil(() => EntityBuilder.Instance != null);
         
         EntityBuilder.Instance.AnchorPoint = _snakeGO.GetComponent<ModuleContainer>().Get(0).transform;
-        EntityBuilder.Instance.StartEntityBuilder();
+
+        if(firstTime){
+         
+            EntityBuilder.Instance.StartEntityBuilder();
+            firstTime = false;
+
+        }
+        else{
+
+            EntityBuilder.Instance.RepositionEntities();
+
+        }
+
 
     }
-
+    
     public void GameOver(){
 
         Debug.Log("Game Over");
+        uiManager.OpenEndMenu();
+        Destroy(_snakeGO);
 
     }
 

@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionCooldown: 5
-  range: 10
+  range: 15
   bulletPrefab: {fileID: 0}
   cannonBarrelTransform: {fileID: 959643597878146944}
   enemy: 0
