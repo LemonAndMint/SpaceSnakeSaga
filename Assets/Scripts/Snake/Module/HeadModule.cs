@@ -12,6 +12,7 @@ public class HeadModule : BlankPassiveModule
         if(other.tag.Contains("Energy")){
 
             _energyType = other.tag;
+            EntityBuilder.Instance.ChangePosition(other.gameObject);
             Action();
 
         }

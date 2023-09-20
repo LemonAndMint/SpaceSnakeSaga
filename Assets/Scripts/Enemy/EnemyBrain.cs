@@ -28,7 +28,7 @@ public class EnemyBrain : MonoBehaviour
         
         if(GetComponent<ModuleHealth>()){
 
-            GetComponent<ModuleHealth>().onDie.AddListener(_stopRepeaters);
+            //GetComponent<ModuleHealth>().onDie.AddListener(_stopRepeaters);
 
         }
 
@@ -56,14 +56,14 @@ public class EnemyBrain : MonoBehaviour
 
     }
 
-    private void _stopRepeaters(GameObject modelGameObject){
+    /*private void _stopRepeaters(GameObject modelGameObject){
 
         StopCoroutine(actionRepeater);
         StopCoroutine(detectRepeater);
 
         Destroy(modelGameObject);
 
-    }
+    }*/
 
     //https://discussions.unity.com/t/raycasting-around-an-object-in-360-degrees/72772
     private void _detectEnviroment(){

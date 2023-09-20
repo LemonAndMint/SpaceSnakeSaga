@@ -38,7 +38,7 @@ namespace ModuleManager
         private Type _moduleType = null;
 
 
-        void Awake()
+        void Start()
         {
 
             if(moduleContainer == null)

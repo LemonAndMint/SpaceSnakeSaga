@@ -1,0 +1,114 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6016521816057264944
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3840935258625121377}
+  - component: {fileID: 6597899275149406359}
+  - component: {fileID: 2878168150997643940}
+  - component: {fileID: 8959268558698439324}
+  - component: {fileID: 3455466895339311747}
+  - component: {fileID: 7136714808359987603}
+  m_Layer: 0
+  m_Name: Game Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3840935258625121377
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6016521816057264944}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6597899275149406359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6016521816057264944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17fc7416e27c51a468fdb46f348b55fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2878168150997643940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6016521816057264944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59558fe47ee577e4190586aa79736e64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8959268558698439324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6016521816057264944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c3ec8d7a94d66f42921ce7d3dd6e4fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraActions: {fileID: 0}
+  snakeManagerPrefb: {fileID: 2149982485510278025, guid: 31d0b6795280b3b469428a7f884d0403, type: 3}
+--- !u!114 &3455466895339311747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6016521816057264944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c12f1ed9ef8eb4cbff22a766d8437e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _anchorPoint: {fileID: 0}
+  _enemyCount: 15
+  _energyCount: 5
+  _entityCreateRadius: 200
+  _entitySpacing: 30
+  _enemyGOPrefbList:
+  - {fileID: 582751896883749370, guid: 88266591684c0f949ab694c2be779a8a, type: 3}
+  _energyGOPrefbList:
+  - {fileID: 2044278023347385449, guid: fc07aaded815b8949868a9f084206b5a, type: 3}
+  - {fileID: 6901191276682012123, guid: a3e0e50b053684b46a760dd14d950351, type: 3}
+  _maxDistanceFromAnchor: 250
+  _entityDistanceCheckTime: 0.5
+--- !u!114 &7136714808359987603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6016521816057264944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55e6faba8150a164bb7568ce3ff7b401, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AsteroidGOPrefb: {fileID: 0}
+  AsteroidCount: 0

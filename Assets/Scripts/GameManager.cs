@@ -1,19 +1,39 @@
 using System.Collections;
-using System.Collections.Generic;
 using ModuleManager;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public ModuleBuilder moduleBuilder;
+    public CameraActions cameraActions;
+    public GameObject snakeManagerPrefb;
 
-    public GameObject enemyGOPrefb;
+    public static bool isDone = false;
 
-    public List<GameObject> energyGOPrefbList;
+    private ModuleBuilder _moduleBuilder;
 
     private void Awake() {
         
-        moduleBuilder.onGameOver = (x) => GameOver();
+        StartCoroutine(_constructGame());
+
+    }
+
+    private IEnumerator _constructGame(){
+
+        GameObject snakeManagerGO = Instantiate(snakeManagerPrefb, Vector3.zero, Quaternion.identity);
+
+        if(snakeManagerGO.GetComponent<ModuleBuilder>())
+            snakeManagerGO.GetComponent<ModuleBuilder>().cameraActions = cameraActions;
+
+        _moduleBuilder = snakeManagerGO.GetComponent<ModuleBuilder>();
+        _moduleBuilder.onGameOver = (x) => GameOver();
+
+        //Oyuncunun kamera odak noktası.
+
+        yield return new WaitUntil(() => snakeManagerGO.GetComponent<ModuleContainer>().Count > 0);
+        yield return new WaitUntil(() => EntityBuilder.Instance != null);
+        
+        EntityBuilder.Instance.AnchorPoint = snakeManagerGO.GetComponent<ModuleContainer>().Get(0).transform;
+        EntityBuilder.Instance.StartEntityBuilder();
 
     }
 
@@ -23,12 +43,4 @@ public class GameManager : MonoBehaviour
 
     }
 
-    private void _setUpEnv(){
-
-
-
-
-    }
-
-    //private void 
 }

@@ -16,7 +16,7 @@ public class ModuleHealth : MonoBehaviour
 
     private void Start() {
 
-        _currentHealth = _health;
+        Restore();
     
     }
 
@@ -36,7 +36,7 @@ public class ModuleHealth : MonoBehaviour
     /// Modüllerin hasar almasını sağlar.
     /// </summary>
     /// <param name="damage">Verilecek hasarın değeri.</param>
-    public virtual void GetHit(int damage)
+    public void GetHit(int damage)
     {
 
         _currentHealth -= damage;
@@ -44,14 +44,20 @@ public class ModuleHealth : MonoBehaviour
 
     }
 
-    public virtual void Die()
+    public void Die()
     {
         
         onDie?.Invoke(this.transform.root.gameObject);
 
     }
 
-    public virtual void OnTriggerEnter2D(Collider2D other) {
+    public void Restore(){
+
+        _currentHealth = _health;
+
+    }
+
+    public void OnTriggerEnter2D(Collider2D other) {
 
         if((other.tag.Contains(EntityUtil.EnumToString(enemy)) || other.tag.Contains("General")) && other.GetComponent<Bullet>()){
 
