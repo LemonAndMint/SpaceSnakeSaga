@@ -10,29 +10,36 @@ public class GameManager : MonoBehaviour
     public static bool isDone = false;
 
     private ModuleBuilder _moduleBuilder;
+    private GameObject _snakeGO = null;
 
-    private void Awake() {
-        
+    public void StartNewGame(){
+
         StartCoroutine(_constructGame());
+
+    }
+
+    public void EndGame(){
+
+
 
     }
 
     private IEnumerator _constructGame(){
 
-        GameObject snakeManagerGO = Instantiate(snakeManagerPrefb, Vector3.zero, Quaternion.identity);
+        _snakeGO = Instantiate(snakeManagerPrefb, Vector3.zero, Quaternion.identity);
 
-        if(snakeManagerGO.GetComponent<ModuleBuilder>())
-            snakeManagerGO.GetComponent<ModuleBuilder>().cameraActions = cameraActions;
+        if(_snakeGO.GetComponent<ModuleBuilder>())
+            _snakeGO.GetComponent<ModuleBuilder>().cameraActions = cameraActions;
 
-        _moduleBuilder = snakeManagerGO.GetComponent<ModuleBuilder>();
+        _moduleBuilder = _snakeGO.GetComponent<ModuleBuilder>();
         _moduleBuilder.onGameOver = (x) => GameOver();
 
         //Oyuncunun kamera odak noktası.
 
-        yield return new WaitUntil(() => snakeManagerGO.GetComponent<ModuleContainer>().Count > 0);
+        yield return new WaitUntil(() => _snakeGO.GetComponent<ModuleContainer>().Count > 0);
         yield return new WaitUntil(() => EntityBuilder.Instance != null);
         
-        EntityBuilder.Instance.AnchorPoint = snakeManagerGO.GetComponent<ModuleContainer>().Get(0).transform;
+        EntityBuilder.Instance.AnchorPoint = _snakeGO.GetComponent<ModuleContainer>().Get(0).transform;
         EntityBuilder.Instance.StartEntityBuilder();
 
     }
