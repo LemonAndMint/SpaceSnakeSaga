@@ -40,6 +40,7 @@ public class WeaponModule : BlankModule
 
             bullet.GetComponent<Bullet>().targetLastPosition = _currEnemy.transform.position;
             bullet.GetComponent<Bullet>().damage = _damageValue;
+            bullet.GetComponent<Bullet>().onHit.AddListener(Destroy);
 
         }
         else{

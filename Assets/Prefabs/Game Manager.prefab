@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 2878168150997643940}
   - component: {fileID: 8959268558698439324}
   - component: {fileID: 3455466895339311747}
-  - component: {fileID: 7136714808359987603}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -76,6 +75,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraActions: {fileID: 0}
   snakeManagerPrefb: {fileID: 2149982485510278025, guid: 31d0b6795280b3b469428a7f884d0403, type: 3}
+  uiManager: {fileID: 0}
 --- !u!114 &3455466895339311747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -91,6 +91,7 @@ MonoBehaviour:
   _anchorPoint: {fileID: 0}
   _enemyCount: 15
   _energyCount: 5
+  _asteroidCount: 0
   _entityCreateRadius: 50
   _entitySpacing: 5
   _enemyGOPrefbList:
@@ -98,19 +99,7 @@ MonoBehaviour:
   _energyGOPrefbList:
   - {fileID: 2044278023347385449, guid: fc07aaded815b8949868a9f084206b5a, type: 3}
   - {fileID: 6901191276682012123, guid: a3e0e50b053684b46a760dd14d950351, type: 3}
+  _asteroidGOPrefbList: []
   _maxDistanceFromAnchor: 80
   _entityDistanceCheckTime: 0.5
---- !u!114 &7136714808359987603
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6016521816057264944}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55e6faba8150a164bb7568ce3ff7b401, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AsteroidGOPrefb: {fileID: 3489345700171343348, guid: bea384ca674355649a075f4b14e3442b, type: 3}
-  AsteroidCount: 0
+  _asteroidMaxDestinationRadius: 0

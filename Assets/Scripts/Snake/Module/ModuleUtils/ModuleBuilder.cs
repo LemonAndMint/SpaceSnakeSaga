@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 using System.Collections;
+using Cinemachine;
 
 namespace ModuleManager
 {
@@ -123,7 +124,7 @@ namespace ModuleManager
 
             _moduleType = null;
 
-            if(moduleContainer.Count % 5 == 0)
+            if(moduleContainer.Count % 5 == 0 && cameraActions.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize < 19)
                 cameraActions.ZoomOut();
 
         }
@@ -203,8 +204,6 @@ namespace ModuleManager
 
             moduleGO.transform.SetParent(snakeBodyGO.transform, false);
             _addingModuleParts.RemoveAt(0);
-
-            cameraActions.ZoomOut();
 
         }
 

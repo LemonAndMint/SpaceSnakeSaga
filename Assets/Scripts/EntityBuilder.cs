@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EntityBuilder : MonoBehaviour
@@ -46,6 +45,10 @@ public class EntityBuilder : MonoBehaviour
 
     [SerializeField] private int _enemyCount;
     [SerializeField] private int _energyCount;
+    [SerializeField] private int _asteroidCount;
+
+    [Space(5f)]
+
     [SerializeField] private float _entityCreateRadius;
     [SerializeField] private float _entitySpacing;
 
@@ -53,12 +56,15 @@ public class EntityBuilder : MonoBehaviour
 
     [SerializeField] private List<GameObject> _enemyGOPrefbList;
     [SerializeField] private List<GameObject> _energyGOPrefbList;
+    [SerializeField] private List<GameObject> _asteroidGOPrefbList;
 
     [Header("Distance")]
     [Space(10f)]
 
     [SerializeField] private float _maxDistanceFromAnchor;
+    [SerializeField] private float _minDistanceFromAnchor;
     [SerializeField] private float _entityDistanceCheckTime;
+    [SerializeField] private float _asteroidMaxDestinationRadius;
 
     private bool isStarted = false;
 
@@ -85,7 +91,9 @@ public class EntityBuilder : MonoBehaviour
 
             _entityBuilder = this;
         
-            _setUp(_enemyGOPrefbList, _enemyCount, _addDieListener);
+            _setUp<ModuleHealth>(_enemyGOPrefbList, _enemyCount, _addDieListener);
+            _setUp<Bullet>(_asteroidGOPrefbList, _asteroidCount, _asteroid);
+            
             _setUp(_energyGOPrefbList, _energyCount);
 
             StartCoroutine(_checkDistance());
@@ -149,7 +157,7 @@ public class EntityBuilder : MonoBehaviour
 
     }
 
-    private void _setUp(List<GameObject> entityPrefbList, int count, Action<ModuleHealth> creatFunc){
+    private void _setUp<T>(List<GameObject> entityPrefbList, int count, Action<T> creatFunc){
 
         for (int i = 0; i < count; i++)
         {
@@ -157,8 +165,8 @@ public class EntityBuilder : MonoBehaviour
             GameObject tempEntityGO = Instantiate(entityPrefbList[UnityEngine.Random.Range(0, entityPrefbList.Count)]);
             _setRandomPosition(tempEntityGO.transform);
 
-            if(tempEntityGO.GetComponent<ModuleHealth>())
-                creatFunc(tempEntityGO.GetComponent<ModuleHealth>());
+            if(tempEntityGO.GetComponent(typeof(T)))//#FIXME ?????
+                creatFunc(tempEntityGO.GetComponent<T>());
 
             _entityIngameGOList.Add(tempEntityGO);
 
@@ -170,7 +178,28 @@ public class EntityBuilder : MonoBehaviour
     private void _addDieListener(ModuleHealth entityHealth){ //#FIXME ?????
 
         entityHealth.onDie.AddListener(ChangePosition);
-        entityHealth.onDie.AddListener( (GameObject x) => entityHealth.Restore());
+        entityHealth.onDie.AddListener( (GameObject x) => entityHealth.Restore() );
+
+    }
+
+    private void _asteroid(Bullet asteroid){
+
+        asteroid.GetComponent<Bullet>().targetLastPosition = _randomPosition(_asteroidMaxDestinationRadius);  
+        asteroid.GetComponent<Bullet>().onHit.AddListener(ChangePosition);    
+
+    }
+
+    private Vector3 _randomPosition(float maxValue){
+
+
+        float radius = UnityEngine.Random.Range(_minDistanceFromAnchor, maxValue);
+
+        //Anchor çevresine yerleştir
+        Vector3 tempPosition = new Vector3( _anchorPoint.position.x + UnityEngine.Random.insideUnitSphere.x * radius, 
+                                            _anchorPoint.position.y + UnityEngine.Random.insideUnitSphere.y * radius, 0 );
+                                            
+
+        return tempPosition;
 
     }
 
@@ -181,15 +210,11 @@ public class EntityBuilder : MonoBehaviour
 
         while(!isFound){
 
-            //Anchor çevresine yerleştir
-            tempPosition = new Vector3( _anchorPoint.position.x + UnityEngine.Random.insideUnitSphere.x * _entityCreateRadius, 
-                                        _anchorPoint.position.y + UnityEngine.Random.insideUnitSphere.y * _entityCreateRadius, 0);
-
             //İki obje birbirine çok yakın olmaması gerek.
             if(_entityIngameGOList.FirstOrDefault( x => Vector3.Distance(x.transform.position, tempPosition) < _entitySpacing ) == null){
 
                 isFound = true;
-                placingEntity.position = tempPosition;
+                placingEntity.position = _randomPosition(_entityCreateRadius);
                 placingEntity.rotation = Quaternion.identity;
 
             }

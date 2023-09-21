@@ -450,6 +450,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 6047418954303181534, guid: 96b0a219f584130498acfd9ec7c15113, type: 3}
+      propertyPath: m_Lens.OrthographicSize
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6998605260671321800, guid: 96b0a219f584130498acfd9ec7c15113, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -910,13 +914,53 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3455466895339311747, guid: 2e6b2457385a7fb4ead2e9bb2b2a44c2, type: 3}
+      propertyPath: _enemyCount
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455466895339311747, guid: 2e6b2457385a7fb4ead2e9bb2b2a44c2, type: 3}
       propertyPath: anchorPoint
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455466895339311747, guid: 2e6b2457385a7fb4ead2e9bb2b2a44c2, type: 3}
+      propertyPath: _energyCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455466895339311747, guid: 2e6b2457385a7fb4ead2e9bb2b2a44c2, type: 3}
+      propertyPath: _asteroidCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455466895339311747, guid: 2e6b2457385a7fb4ead2e9bb2b2a44c2, type: 3}
+      propertyPath: _entitySpacing
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3455466895339311747, guid: 2e6b2457385a7fb4ead2e9bb2b2a44c2, type: 3}
       propertyPath: _entitySpaceing
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 3455466895339311747, guid: 2e6b2457385a7fb4ead2e9bb2b2a44c2, type: 3}
+      propertyPath: _entityCreateRadius
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455466895339311747, guid: 2e6b2457385a7fb4ead2e9bb2b2a44c2, type: 3}
+      propertyPath: _maxDistanceFromAnchor
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455466895339311747, guid: 2e6b2457385a7fb4ead2e9bb2b2a44c2, type: 3}
+      propertyPath: _minDistanceFromAnchor
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455466895339311747, guid: 2e6b2457385a7fb4ead2e9bb2b2a44c2, type: 3}
+      propertyPath: _asteroidMaxDestinationRadius
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455466895339311747, guid: 2e6b2457385a7fb4ead2e9bb2b2a44c2, type: 3}
+      propertyPath: _asteroidGOPrefbList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455466895339311747, guid: 2e6b2457385a7fb4ead2e9bb2b2a44c2, type: 3}
+      propertyPath: _asteroidGOPrefbList.Array.data[0]
+      value: 
+      objectReference: {fileID: 3489345700171343348, guid: bea384ca674355649a075f4b14e3442b, type: 3}
     - target: {fileID: 3840935258625121377, guid: 2e6b2457385a7fb4ead2e9bb2b2a44c2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1045,7 +1089,8 @@ PrefabInstance:
       propertyPath: _energyGOPrefbList.Array.data[1]
       value: 
       objectReference: {fileID: 6901191276682012123, guid: a3e0e50b053684b46a760dd14d950351, type: 3}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7136714808359987603, guid: 2e6b2457385a7fb4ead2e9bb2b2a44c2, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1134,7 +1179,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 7
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

@@ -79,7 +79,7 @@ public class ModuleHealth : MonoBehaviour
         if((other.tag.Contains(EntityUtil.EnumToString(enemy)) || other.tag.Contains("General")) && other.GetComponent<Bullet>()){
 
             GetHit(other.GetComponent<Bullet>().GetDamage());
-            Destroy(other.gameObject); //#FIXME ???? dogru mu 
+            other.GetComponent<Bullet>().OnImpact();
 
         }
 
