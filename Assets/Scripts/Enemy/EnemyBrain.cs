@@ -10,18 +10,28 @@ public class EnemyBrain : MonoBehaviour
     public EnemyMovement enemyMovement;
 
     [SerializeField]private int raysToShoot = 6;
-    [SerializeField]private float _actionCooldown;
+    [SerializeField]private float _actionCooldown; //override weapon module cooldowns;
+    [SerializeField]private float _maxCooldownDeflection;
     [SerializeField]private float _detectCooldown;
     [SerializeField]private float _detectRadius = 2f;
 
     void Start()
     {
 
-        //_actionCooldown = Random.Range(_actionCooldown, _actionCooldown)
-        
+        _statRandomizer();
+
         StartCoroutine(_actionRepeater());
         StartCoroutine(_detectRepeater());
         
+    }
+
+    private void _statRandomizer(){
+
+        _actionCooldown = Random.Range(_actionCooldown - _maxCooldownDeflection, _actionCooldown + _maxCooldownDeflection);
+        
+        if(GetComponent<EnemyMovement>())
+            GetComponent<EnemyMovement>().RandomSpeed();
+
     }
 
     private IEnumerator _actionRepeater(){
@@ -32,6 +42,7 @@ public class EnemyBrain : MonoBehaviour
             {
 
                 weaponModule.Action();
+                yield return new WaitForSeconds(0.2f);
                 
             }
             yield return new WaitForSeconds(_actionCooldown);

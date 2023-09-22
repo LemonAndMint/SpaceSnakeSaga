@@ -7,6 +7,8 @@ public class EnemyMovement : MonoBehaviour
 {
 
     [SerializeField] private float _speed = 10f;
+    [SerializeField] private float _maxSpeedDeflection;
+    public void RandomSpeed(){ _speed = Random.Range(_speed - _maxSpeedDeflection, _speed + _maxSpeedDeflection); }
     [SerializeField] private float _counter = 2f;
     [SerializeField] private float _maxDistanceFromTarget = 3f;
 

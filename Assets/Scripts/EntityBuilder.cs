@@ -52,6 +52,9 @@ public class EntityBuilder : MonoBehaviour
     [SerializeField] private float _entityCreateRadius;
     [SerializeField] private float _entitySpacing;
 
+    [Space(5f)]
+    [SerializeField] private float _maxTries;
+
     [Space(10f)]
 
     [SerializeField] private List<GameObject> _enemyGOPrefbList;
@@ -118,6 +121,15 @@ public class EntityBuilder : MonoBehaviour
     public void ChangePosition(GameObject entityGO){
 
         _setRandomPosition(entityGO.transform);
+
+    }
+
+    public void AddEntity(int enemyCount, int energyCount, int asteroidCount){
+
+        _setUp<ModuleHealth>(_enemyGOPrefbList, enemyCount, _addDieListener);
+        _setUp<Bullet>(_asteroidGOPrefbList, asteroidCount, _asteroid);
+        
+        _setUp(_energyGOPrefbList, energyCount);
 
     }
 
@@ -192,11 +204,12 @@ public class EntityBuilder : MonoBehaviour
     private Vector3 _randomPosition(float maxValue){
 
 
-        float radius = UnityEngine.Random.Range(_minDistanceFromAnchor, maxValue);
+        float x = (UnityEngine.Random.insideUnitSphere.x * maxValue + _minDistanceFromAnchor) *  Mathf.Sign(UnityEngine.Random.Range(-1, 1));
+        float y = (UnityEngine.Random.insideUnitSphere.y * maxValue + _minDistanceFromAnchor) *  Mathf.Sign(UnityEngine.Random.Range(-1, 1));
 
         //Anchor çevresine yerleştir
-        Vector3 tempPosition = new Vector3( _anchorPoint.position.x + UnityEngine.Random.insideUnitSphere.x * radius, 
-                                            _anchorPoint.position.y + UnityEngine.Random.insideUnitSphere.y * radius, 0 );
+        Vector3 tempPosition = new Vector3( _anchorPoint.position.x + x, 
+                                            _anchorPoint.position.y + y, 0 );
                                             
 
         return tempPosition;
@@ -205,21 +218,29 @@ public class EntityBuilder : MonoBehaviour
 
     private void _setRandomPosition(Transform placingEntity){
 
-        bool isFound = false;
+        float maxTries = 0;
         Vector3 tempPosition = Vector3.zero;
 
-        while(!isFound){
+        while(maxTries < _maxTries){
+
+            tempPosition = _randomPosition(_entityCreateRadius);
 
             //İki obje birbirine çok yakın olmaması gerek.
             if(_entityIngameGOList.FirstOrDefault( x => Vector3.Distance(x.transform.position, tempPosition) < _entitySpacing ) == null){
 
-                isFound = true;
-                placingEntity.position = _randomPosition(_entityCreateRadius);
+                placingEntity.position = tempPosition;
                 placingEntity.rotation = Quaternion.identity;
+                return;
 
             }
 
+            maxTries++;
+
         }
+
+        //Sonsuz döngüye girmemesi için maksimum deneme sayısı ayarladık, eğer hiçbir yer bulamadıysa rastgele bir yere atar.
+        placingEntity.position = _randomPosition(_entityCreateRadius);
+        placingEntity.rotation = Quaternion.identity;
 
     }
 }

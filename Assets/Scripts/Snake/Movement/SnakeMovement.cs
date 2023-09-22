@@ -9,6 +9,7 @@ public class SnakeMovement : MonoBehaviour
 {
 
     public ModuleContainer moduleContainer;
+    public DynamicJoystick joystick;
     
     //Fixed Update saniyede calisma miktari
     const int FIXED_FPS = 50;
@@ -36,10 +37,10 @@ public class SnakeMovement : MonoBehaviour
         {
 
             moduleContainer.Get(0).GetComponent<Rigidbody2D>().velocity = moduleContainer.Get(0).transform.right * _speed * Time.deltaTime;
-            if(Input.GetAxis("Horizontal") != 0)
+            if(joystick.Horizontal != 0)
             {
 
-                moduleContainer.Get(0).transform.Rotate(new Vector3(0, 0, -_turnspeed * Time.deltaTime * Input.GetAxis("Horizontal")));
+                moduleContainer.Get(0).transform.Rotate(new Vector3(0, 0, -_turnspeed * Time.deltaTime * joystick.Horizontal));
 
             }
 

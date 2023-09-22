@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: ddb83fd4e088b0542972cc79831ad689, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -137,6 +137,9 @@ MonoBehaviour:
   - {fileID: 6380912869685604498}
   - {fileID: 4605881910644152231}
   onDie:
+    m_PersistentCalls:
+      m_Calls: []
+  onGetHit:
     m_PersistentCalls:
       m_Calls: []
   enemy: 1
@@ -249,7 +252,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: ddb83fd4e088b0542972cc79831ad689, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -333,7 +336,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: a2962b61d1b29824299c73fd1465207e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -360,6 +363,10 @@ PrefabInstance:
     - target: {fileID: 1431934570787609159, guid: 19410eaac693bed4090c01cf58c5f3b1, type: 3}
       propertyPath: enemy
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1431934570787609159, guid: 19410eaac693bed4090c01cf58c5f3b1, type: 3}
+      propertyPath: range
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1431934570787609159, guid: 19410eaac693bed4090c01cf58c5f3b1, type: 3}
       propertyPath: _damageValue
@@ -482,6 +489,10 @@ PrefabInstance:
     - target: {fileID: 7980742534426533358, guid: 560bc146ff7d8e747bc1a54c44e61398, type: 3}
       propertyPath: enemy
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7980742534426533358, guid: 560bc146ff7d8e747bc1a54c44e61398, type: 3}
+      propertyPath: range
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7980742534426533358, guid: 560bc146ff7d8e747bc1a54c44e61398, type: 3}
       propertyPath: EnemyTag
