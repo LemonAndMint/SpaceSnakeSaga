@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
     public GameObject menuCanvas;
     public GameObject endMenuCanvas;
     public GameObject inGameCanvas;
+    public GameObject inGameBackgroundCanvas;
     public TMP_Text timer;
     public TMP_Text score;
     public GameObject joystick;
@@ -37,13 +38,15 @@ public class UIManager : MonoBehaviour
     public void OpenInGameCanvas(){
 
         inGameCanvas.SetActive(true);
+        inGameBackgroundCanvas.SetActive(true);
 
     }
 
     public void CloseInGameCanvas(){
 
         inGameCanvas.SetActive(false);
-
+        inGameBackgroundCanvas.SetActive(false);
+    
     }
 
     public void OpenEndMenu(){
