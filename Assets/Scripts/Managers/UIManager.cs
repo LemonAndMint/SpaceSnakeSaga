@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -11,6 +12,9 @@ public class UIManager : MonoBehaviour
     public TMP_Text timer;
     public TMP_Text score;
     public GameObject joystick;
+    public TMP_Text timerMenu;
+    public TMP_Text scoreMenu;
+    public TMP_Text levelMenu;
     
     public void CloseMainMenu(){
 
@@ -20,8 +24,14 @@ public class UIManager : MonoBehaviour
 
     public void OpenMainMenu(){
 
-        menuCanvas.SetActive(true);
+        List<int> highscores = gm.GetHighscore();
 
+        levelMenu.text = highscores[0].ToString();
+        scoreMenu.text = highscores[1].ToString();
+        timerMenu.text = _floatToStringTime(highscores[2]);
+
+        menuCanvas.SetActive(true);
+        
     }
 
     public void OpenInGameCanvas(){
@@ -51,15 +61,20 @@ public class UIManager : MonoBehaviour
     private void Update() {
 
         float remainingTime = gm.GetGameTime();
-
-        int minutes = Mathf.FloorToInt(remainingTime / 60F);
-        int seconds = Mathf.FloorToInt(remainingTime - minutes * 60);
-
-        string niceTime = string.Format("{0:0}:{1:00}", minutes, seconds);
+        string niceTime = _floatToStringTime(remainingTime);
 
         timer.text = niceTime;
-
         score.text = string.Format("{0}/{1}", ScoreManager.Instance.GetScore(), gm.TargetScore);
+
+    }
+
+    //https://discussions.unity.com/t/making-a-timer-00-00-minutes-and-seconds/14318
+    private string _floatToStringTime(float timeSecond){
+
+        int minutes = Mathf.FloorToInt(timeSecond / 60F);
+        int seconds = Mathf.FloorToInt(timeSecond - minutes * 60);
+
+        return string.Format("{0:0}:{1:00}", minutes, seconds);
 
     }
 

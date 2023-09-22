@@ -136,8 +136,12 @@ MonoBehaviour:
   onDie:
     m_PersistentCalls:
       m_Calls: []
+  onGetHit:
+    m_PersistentCalls:
+      m_Calls: []
   enemy: 1
   _health: 10
+  particleGOPrefb: {fileID: 7442293994411064784, guid: 808dfb3c5052d214bad70f3253fec74f, type: 3}
   isCollisionProof: 0
 --- !u!114 &1237131050157257287
 MonoBehaviour:

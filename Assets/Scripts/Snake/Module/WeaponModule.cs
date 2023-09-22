@@ -11,6 +11,7 @@ public class WeaponModule : BlankModule
     public Entity enemy;
 
     [SerializeField]private int _damageValue;
+    [SerializeField]private float _accuracyDeflection;
 
     private GameObject _currEnemy;
     public GameObject TargetedEnemy{
@@ -38,7 +39,11 @@ public class WeaponModule : BlankModule
             
             if(!bullet.GetComponent<Bullet>()){ bullet.AddComponent<Bullet>(); }
 
-            bullet.GetComponent<Bullet>().targetLastPosition = _currEnemy.transform.position;
+            Vector3 tempTargetPos = new Vector3( _currEnemy.transform.position.x + Random.insideUnitSphere.x * _accuracyDeflection, 
+                                                 _currEnemy.transform.position.y + Random.insideUnitSphere.y * _accuracyDeflection,
+                                                 0);
+
+            bullet.GetComponent<Bullet>().targetLastPosition = tempTargetPos;
             bullet.GetComponent<Bullet>().damage = _damageValue;
             bullet.GetComponent<Bullet>().onHit.AddListener(Destroy);
 

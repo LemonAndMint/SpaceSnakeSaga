@@ -68,6 +68,7 @@ public class EntityBuilder : MonoBehaviour
     [SerializeField] private float _minDistanceFromAnchor;
     [SerializeField] private float _entityDistanceCheckTime;
     [SerializeField] private float _asteroidMaxDestinationRadius;
+    [SerializeField] private float _asteroidSizeDeflection;
 
     private bool isStarted = false;
 
@@ -196,8 +197,15 @@ public class EntityBuilder : MonoBehaviour
 
     private void _asteroid(Bullet asteroid){
 
-        asteroid.GetComponent<Bullet>().targetLastPosition = _randomPosition(_asteroidMaxDestinationRadius);  
-        asteroid.GetComponent<Bullet>().onHit.AddListener(ChangePosition);    
+        asteroid.targetLastPosition = _randomPosition(_asteroidMaxDestinationRadius);  
+        asteroid.onHit.AddListener(ChangePosition);    
+
+        float sizeDeflection = UnityEngine.Random.Range(-_asteroidSizeDeflection, _asteroidSizeDeflection);
+
+        asteroid.transform.localScale = new Vector3( asteroid.transform.localScale.x + sizeDeflection, 
+                                                     asteroid.transform.localScale.y + sizeDeflection, 
+                                                     asteroid.transform.localScale.y + sizeDeflection );
+
 
     }
 

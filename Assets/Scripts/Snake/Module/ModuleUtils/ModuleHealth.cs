@@ -16,6 +16,9 @@ public class ModuleHealth : MonoBehaviour
     [SerializeField] private int _health;
     private int _currentHealth;
     private float _changeColorAmount;
+    public GameObject particleGOPrefb;
+
+    private Vector3 _diePosition;
 
     public bool isCollisionProof;
 
@@ -23,8 +26,19 @@ public class ModuleHealth : MonoBehaviour
 
         Restore();
         _changeColorAmount = 1 / (float)_health;
+
+        onDie.AddListener((GameObject x) => _startParticle() );
         
-    
+    }
+
+    private void _startParticle(){
+
+        if(particleGOPrefb != null){
+
+            GameObject particleGO = Instantiate(particleGOPrefb, _diePosition, Quaternion.identity, null);
+            Destroy(particleGO, particleGO.GetComponent<ParticleSystem>().main.startLifetime.constantMax + 2f);
+        
+        }
     }
 
     private void Update() {
@@ -60,6 +74,7 @@ public class ModuleHealth : MonoBehaviour
     public void Die()
     {
         
+        _diePosition = transform.position;
         onDie?.Invoke(this.transform.root.gameObject);
 
     }

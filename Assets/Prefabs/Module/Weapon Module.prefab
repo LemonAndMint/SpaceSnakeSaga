@@ -144,6 +144,7 @@ MonoBehaviour:
       m_Calls: []
   enemy: 1
   _health: 10
+  particleGOPrefb: {fileID: 7442293994411064784, guid: 808dfb3c5052d214bad70f3253fec74f, type: 3}
   isCollisionProof: 0
 --- !u!58 &922558721716119924
 CircleCollider2D:
@@ -179,7 +180,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.4
+  m_Radius: 0.28
 --- !u!1 &4564219702218055897
 GameObject:
   m_ObjectHideFlags: 0

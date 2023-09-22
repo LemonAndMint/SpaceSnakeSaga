@@ -97,6 +97,7 @@ MonoBehaviour:
   cannonBarrelTransform: {fileID: 959643597878146944}
   enemy: 0
   _damageValue: 0
+  _accuracyDeflection: 0.2
 --- !u!1 &6298761067583382660
 GameObject:
   m_ObjectHideFlags: 0

@@ -117,6 +117,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3240803199985667674}
+  - {fileID: 5011139346140903726}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &-2551782298047782187
@@ -141,6 +142,7 @@ MonoBehaviour:
       m_Calls: []
   enemy: 1
   _health: 5
+  particleGOPrefb: {fileID: 7442293994411064784, guid: 808dfb3c5052d214bad70f3253fec74f, type: 3}
   isCollisionProof: 0
 --- !u!114 &4086606596766083223
 MonoBehaviour:
@@ -191,3 +193,117 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.32
+--- !u!1001 &8104367423722158965
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2001044173281918100}
+    m_Modifications:
+    - target: {fileID: 3059950730592135033, guid: 77030d927f42cd44787d127d428e62f3, type: 3}
+      propertyPath: m_Name
+      value: Blue Trail
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887551597961724507, guid: 77030d927f42cd44787d127d428e62f3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.091
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887551597961724507, guid: 77030d927f42cd44787d127d428e62f3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887551597961724507, guid: 77030d927f42cd44787d127d428e62f3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887551597961724507, guid: 77030d927f42cd44787d127d428e62f3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887551597961724507, guid: 77030d927f42cd44787d127d428e62f3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887551597961724507, guid: 77030d927f42cd44787d127d428e62f3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887551597961724507, guid: 77030d927f42cd44787d127d428e62f3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887551597961724507, guid: 77030d927f42cd44787d127d428e62f3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887551597961724507, guid: 77030d927f42cd44787d127d428e62f3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887551597961724507, guid: 77030d927f42cd44787d127d428e62f3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6476557802746196139, guid: 77030d927f42cd44787d127d428e62f3, type: 3}
+      propertyPath: m_Time
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6476557802746196139, guid: 77030d927f42cd44787d127d428e62f3, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6476557802746196139, guid: 77030d927f42cd44787d127d428e62f3, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6476557802746196139, guid: 77030d927f42cd44787d127d428e62f3, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].time
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6476557802746196139, guid: 77030d927f42cd44787d127d428e62f3, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].time
+      value: 0.706422
+      objectReference: {fileID: 0}
+    - target: {fileID: 6476557802746196139, guid: 77030d927f42cd44787d127d428e62f3, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
+      value: 0.70833397
+      objectReference: {fileID: 0}
+    - target: {fileID: 6476557802746196139, guid: 77030d927f42cd44787d127d428e62f3, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6476557802746196139, guid: 77030d927f42cd44787d127d428e62f3, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].inSlope
+      value: -0.34935912
+      objectReference: {fileID: 0}
+    - target: {fileID: 6476557802746196139, guid: 77030d927f42cd44787d127d428e62f3, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6476557802746196139, guid: 77030d927f42cd44787d127d428e62f3, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].outSlope
+      value: -0.34935912
+      objectReference: {fileID: 0}
+    - target: {fileID: 6476557802746196139, guid: 77030d927f42cd44787d127d428e62f3, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].inWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6476557802746196139, guid: 77030d927f42cd44787d127d428e62f3, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6476557802746196139, guid: 77030d927f42cd44787d127d428e62f3, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].outWeight
+      value: 0.31137726
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 77030d927f42cd44787d127d428e62f3, type: 3}
+--- !u!4 &5011139346140903726 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3887551597961724507, guid: 77030d927f42cd44787d127d428e62f3, type: 3}
+  m_PrefabInstance: {fileID: 8104367423722158965}
+  m_PrefabAsset: {fileID: 0}

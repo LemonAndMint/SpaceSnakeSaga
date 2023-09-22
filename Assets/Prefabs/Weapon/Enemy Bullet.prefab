@@ -46,9 +46,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d0c6c9e423645a459bc523efb0a09ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 15
+  moveSpeed: 10
   targetLastPosition: {x: 0, y: 0, z: 0}
   damage: 1
+  particleGOPrefb: {fileID: 2379806838990587663, guid: 79e7fe688c5859e49a167f096e83b952, type: 3}
+  onHit:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!61 &1266033806748632683
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -92,7 +96,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.214069, y: 0.52553624}
+  m_Size: {x: 2.16, y: 0.53}
   m_EdgeRadius: 0
 --- !u!1 &5602600001912757382
 GameObject:
@@ -166,7 +170,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: f55e03f9cb2daf842936ab69d0fe2e2c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

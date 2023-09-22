@@ -7,6 +7,8 @@ public class Bullet : MonoBehaviour
     public Vector3 targetLastPosition; 
     public int damage; 
 
+    public GameObject particleGOPrefb;
+
     public UnityEvent<GameObject> onHit = new UnityEvent<GameObject>();
 
     public int GetDamage(){ return damage; }
@@ -16,7 +18,18 @@ public class Bullet : MonoBehaviour
     private void Start() {
         
         transform.right = targetLastPosition - transform.position;
+        onHit.AddListener( (GameObject x) => _startParticle() );
 
+    }
+
+    private void _startParticle(){
+
+        if(particleGOPrefb != null){
+
+            GameObject particleGO = Instantiate(particleGOPrefb, transform.position, Quaternion.identity);
+            Destroy(particleGO, particleGO.GetComponent<ParticleSystem>().main.startLifetime.constantMax + 0.5f);
+        
+        }
     }
 
     void Update()

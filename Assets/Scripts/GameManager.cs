@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using ModuleManager;
 using UnityEngine;
 
@@ -42,7 +43,6 @@ public class GameManager : MonoBehaviour
     public void NextLevel(){
 
         EntityBuilder.Instance.AddEntity(5 , 1, 3);
-        EntityBuilder.Instance.RepositionEntities();
 
         _targetGameTime -= _decreasedTargetGameTime;
         _gameTime = _targetGameTime;
@@ -129,23 +129,44 @@ public class GameManager : MonoBehaviour
     }
     public void Win(){
 
-        Debug.Log("Win");
         _levelCount++;
+
+        _setHighscore();
+
         StartCoroutine(_nextLevel());
 
     }
+
+    /// <summary>
+    /// List içerisinde sırayla; level, score, time highscorelar bulunur.
+    /// </summary>
+    /// <returns></returns>
+    public List<int> GetHighscore(){
+
+        return new List<int> {  PlayerPrefs.GetInt("level"), PlayerPrefs.GetInt("score"), PlayerPrefs.GetInt("time") };
+
+    }
+
     
     public void GameOver(){
 
-        Debug.Log("Game Over");
-
-        PlayerPrefs.SetInt("level", _levelCount);
-        PlayerPrefs.SetInt("score", ScoreManager.Instance.GetScore());
-        PlayerPrefs.SetInt("time", (int)_gameTime);
+        _setHighscore();
 
         uiManager.OpenEndMenu();
         uiManager.CloseInGameCanvas();
         Destroy(_snakeGO);
+
+    }
+
+    private void _setHighscore(){
+
+        if(PlayerPrefs.GetInt("level") <= _levelCount ){
+
+            PlayerPrefs.SetInt("level", _levelCount);
+            PlayerPrefs.SetInt("score", ScoreManager.Instance.GetScore());
+            PlayerPrefs.SetInt("time", (int)_gameTime);
+
+        }
 
     }
 
