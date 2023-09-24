@@ -111,21 +111,25 @@ namespace ModuleManager
 
             await Task.Delay(_moduleCreationSecond * 1000);
 
-            //Construction animasyonunu yok ediyoruz.
-            Destroy(snakeBodyGO.transform.GetChild(snakeBodyGO.transform.childCount - 1).gameObject);
+            if(snakeBodyGO != null){
 
-            GameObject moduleGO = _createModule(_moduleType);
+                //Construction animasyonunu yok ediyoruz.
+                Destroy(snakeBodyGO.transform.GetChild(snakeBodyGO.transform.childCount - 1).gameObject);
 
-            if(moduleGO != null){
+                GameObject moduleGO = _createModule(_moduleType);
 
-                moduleGO.transform.SetParent(snakeBodyGO.transform, false);
+                if(moduleGO != null){
+
+                    moduleGO.transform.SetParent(snakeBodyGO.transform, false);
+
+                }
+
+                _moduleType = null;
+
+                if(moduleContainer.Count % 5 == 0 && cameraActions.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize < 23)
+                    cameraActions.ZoomOut();
 
             }
-
-            _moduleType = null;
-
-            if(moduleContainer.Count % 5 == 0 && cameraActions.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize < 19)
-                cameraActions.ZoomOut();
 
         }
 
@@ -286,6 +290,14 @@ namespace ModuleManager
                 cameraActions.virtualCamera.Follow = moduleGO.transform; //Kamera takibi
                 
             }
+
+        }
+
+        public void DestroyAllModules(){
+
+
+            moduleContainer.RemoveAll();
+
 
         }
 

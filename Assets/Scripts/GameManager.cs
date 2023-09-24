@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
 
     private ModuleBuilder _moduleBuilder;
     private GameObject _snakeGO = null;
-    private bool firstTime = true;
+    private bool _inGame = false;
     private bool _isLevelCleared = false;
 
 
@@ -22,7 +22,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float _targetScore; 
     public float TargetScore { get { return _targetScore; } }
     [SerializeField] private float _increasedTargetScore; 
-    [SerializeField] private float _targetGameTime; 
+    [SerializeField] private float _firstTargetGameTime; 
+    private float _targetGameTime; 
     [SerializeField] private float _decreasedTargetGameTime; 
     [SerializeField] private float _waitTime; 
 
@@ -31,6 +32,7 @@ public class GameManager : MonoBehaviour
         uiManager.OpenMainMenu();
         uiManager.CloseEndMenu();
         uiManager.CloseInGameCanvas();
+        uiManager.ClosePaseMenu();
 
     }
 
@@ -55,7 +57,7 @@ public class GameManager : MonoBehaviour
 
     private void Update() {
 
-        if(!firstTime){
+        if(_inGame){
 
             _gameTime -= Time.deltaTime;   
 
@@ -81,9 +83,37 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void PauseGame(){
+
+        Time.timeScale = 0;
+
+    }
+
+    public void ResumeGame(){
+
+        Time.timeScale = 1;
+
+    }
+
+    public void ReturnMainMenu(){
+
+        _resetEntities();
+        _resetGame();
+
+    }
+
+    private void _resetEntities(){
+
+        _snakeGO.GetComponent<ModuleBuilder>().DestroyAllModules();
+        Destroy(_snakeGO);
+        EntityBuilder.Instance.DestroyAllObjects();
+
+    }
+
     private IEnumerator _constructGame(){
 
-        _gameTime = _targetGameTime;
+        _gameTime = _firstTargetGameTime;
+        _targetGameTime = _firstTargetGameTime;
 
         _snakeGO = Instantiate(snakeManagerPrefb, Vector3.zero, Quaternion.identity);
 
@@ -104,19 +134,11 @@ public class GameManager : MonoBehaviour
         bgMovement.playerTransform = _snakeGO.GetComponent<ModuleContainer>().Get(0).transform;
         EntityBuilder.Instance.AnchorPoint = _snakeGO.GetComponent<ModuleContainer>().Get(0).transform;
 
-        if(firstTime){
-         
-            EntityBuilder.Instance.StartEntityBuilder();
-            firstTime = false;
-
-        }
-        else{
-
-            EntityBuilder.Instance.RepositionEntities();
-
-        }
-
+        EntityBuilder.Instance.StartEntityBuilder();
+       
         uiManager.OpenInGameCanvas();
+
+        _inGame = true;
 
 
     }
@@ -152,9 +174,22 @@ public class GameManager : MonoBehaviour
 
         _setHighscore();
 
+        _resetGame();
+
         uiManager.OpenEndMenu();
         uiManager.CloseInGameCanvas();
-        Destroy(_snakeGO);
+       _resetEntities();
+
+
+    }
+
+    private void _resetGame(){
+
+        _levelCount = 0;
+        ScoreManager.Instance.ResetScore();
+        _gameTime = _firstTargetGameTime;
+
+       _inGame = false;
 
     }
 

@@ -9,11 +9,6 @@ public class ScoreManager : MonoBehaviour
 
         get{
 
-            if(_scoreManager == null){
-
-                _scoreManager = Instantiate(new ScoreManager()); //#FIXME
-
-            }
             return _scoreManager;
 
         }
@@ -41,6 +36,8 @@ public class ScoreManager : MonoBehaviour
         _score++;
 
     }
+
+    public void ResetScore(){ _score = 0; }
 
     public int GetScore(){
 

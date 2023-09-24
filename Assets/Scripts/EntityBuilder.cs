@@ -87,24 +87,19 @@ public class EntityBuilder : MonoBehaviour
     }
 
     /// <summary>
-    /// Bir kere çalışır. Oyunun başında çevredeki nesneleri yaratır.
+    /// Oyunun başında çevredeki nesneleri yaratır.
     /// </summary>
     public void StartEntityBuilder(){
 
-        if(!isStarted){
-
-            _entityBuilder = this;
+        _entityBuilder = this;
+    
+        _setUp<ModuleHealth>(_enemyGOPrefbList, _enemyCount, _addDieListener);
+        _setUp<Bullet>(_asteroidGOPrefbList, _asteroidCount, _asteroid);
         
-            _setUp<ModuleHealth>(_enemyGOPrefbList, _enemyCount, _addDieListener);
-            _setUp<Bullet>(_asteroidGOPrefbList, _asteroidCount, _asteroid);
-            
-            _setUp(_energyGOPrefbList, _energyCount);
+        _setUp(_energyGOPrefbList, _energyCount);
 
-            StartCoroutine(_checkDistance());
+        StartCoroutine(_checkDistance());
 
-            isStarted = true;
-
-        }
 
     }
 
@@ -122,6 +117,18 @@ public class EntityBuilder : MonoBehaviour
     public void ChangePosition(GameObject entityGO){
 
         _setRandomPosition(entityGO.transform);
+
+    }
+
+    public void DestroyAllObjects(){
+
+        foreach (GameObject entityGO in _entityIngameGOList)
+        {
+            Destroy(entityGO);
+            
+        }
+
+        _entityIngameGOList.RemoveRange(0, _entityIngameGOList.Count);
 
     }
 

@@ -57,6 +57,17 @@ namespace ModuleManager
 
         }
 
+        public void RemoveAll(){
+
+            foreach (GameObject module in _modules)
+            {
+                Destroy(module);
+            }
+
+            _modules.RemoveRange(0, _modules.Count);
+
+        }
+
         /// <summary>
         /// Snake'teki modülleri <paramref name="_modules"/> listesindeki indexlerine göre yokeder.
         /// </summary>

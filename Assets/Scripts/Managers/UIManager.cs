@@ -9,13 +9,12 @@ public class UIManager : MonoBehaviour
     public GameObject menuCanvas;
     public GameObject endMenuCanvas;
     public GameObject inGameCanvas;
-    public GameObject inGameBackgroundCanvas;
+    public GameObject pauseCanvas;
     public TMP_Text timer;
     public TMP_Text score;
     public GameObject joystick;
     public TMP_Text timerMenu;
     public TMP_Text scoreMenu;
-    public TMP_Text levelMenu;
     
     public void CloseMainMenu(){
 
@@ -27,7 +26,6 @@ public class UIManager : MonoBehaviour
 
         List<int> highscores = gm.GetHighscore();
 
-        levelMenu.text = highscores[0].ToString();
         scoreMenu.text = highscores[1].ToString();
         timerMenu.text = _floatToStringTime(highscores[2]);
 
@@ -38,15 +36,27 @@ public class UIManager : MonoBehaviour
     public void OpenInGameCanvas(){
 
         inGameCanvas.SetActive(true);
-        inGameBackgroundCanvas.SetActive(true);
 
     }
 
     public void CloseInGameCanvas(){
 
         inGameCanvas.SetActive(false);
-        inGameBackgroundCanvas.SetActive(false);
     
+    }
+
+    public void OpenPauseMenu(){
+
+        gm.PauseGame();
+        pauseCanvas.SetActive(true);
+
+    }
+
+    public void ClosePaseMenu(){
+
+        gm.ResumeGame();
+        pauseCanvas.SetActive(false);
+
     }
 
     public void OpenEndMenu(){

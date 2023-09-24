@@ -69,7 +69,7 @@ MonoBehaviour:
   moduleContainer: {fileID: 6659986592667788290}
   cameraActions: {fileID: 0}
   _distanceBetween: 0.25
-  _moduleCreationSecond: 5
+  _moduleCreationSecond: 10
   _addingModuleParts:
   - {fileID: 4516782991472251180, guid: 9953b2eae33683e459052b454b036c7e, type: 3}
   energyDatas:
@@ -90,7 +90,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moduleContainer: {fileID: 6659986592667788290}
-  _speed: 150
+  joystick: {fileID: 0}
+  _speed: 180
   _turnspeed: 180
 --- !u!114 &484460000392032783
 MonoBehaviour:
