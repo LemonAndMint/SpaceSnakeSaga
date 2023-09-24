@@ -67,6 +67,8 @@ public class ModuleHealth : MonoBehaviour
             GFX.color = Color.Lerp(GFX.color, Color.red, _changeColorAmount);
         }
 
+        GetComponentInChildren<AudioSource>().Play();
+
         onGetHit?.Invoke(this.transform.root.gameObject);
 
     }

@@ -20,6 +20,8 @@ namespace ModuleManager
         public ModuleContainer moduleContainer;
         public CameraActions cameraActions;
 
+        public Sprite headSprite;
+
         public UnityAction<GameObject> onGameOver;
         
         [SerializeField] private float _distanceBetween = .2f;
@@ -284,6 +286,9 @@ namespace ModuleManager
             //Head modülü için özel atamalar.
             if(moduleGO.GetComponent<HeadModule>() && moduleGO.GetComponent<ModuleHealth>()){
                 
+                if(headSprite != null)
+                    moduleGO.GetComponentInChildren<SpriteRenderer>().sprite = headSprite;
+                    
                 moduleGO.GetComponent<HeadModule>().moduleBuilder = this;
                 moduleGO.GetComponent<ModuleHealth>().onDie.AddListener(onGameOver);
 

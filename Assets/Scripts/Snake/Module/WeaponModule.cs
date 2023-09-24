@@ -47,6 +47,8 @@ public class WeaponModule : BlankModule
             bullet.GetComponent<Bullet>().damage = _damageValue;
             bullet.GetComponent<Bullet>().onHit.AddListener(Destroy);
 
+            GetComponentInChildren<AudioSource>().Play();
+
         }
         else{
 

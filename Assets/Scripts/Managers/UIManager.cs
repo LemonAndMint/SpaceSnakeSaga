@@ -6,15 +6,26 @@ public class UIManager : MonoBehaviour
 {
     public GameManager gm;
 
+    public GameObject joystick;
+    
+    [Space(10f)]
     public GameObject menuCanvas;
     public GameObject endMenuCanvas;
     public GameObject inGameCanvas;
     public GameObject pauseCanvas;
+    public GameObject shopCanvas;
+
+    [Space(10f)]
+    public GameObject sound;
+
+    [Space(10f)]
     public TMP_Text timer;
     public TMP_Text score;
-    public GameObject joystick;
+    public TMP_Text points;
+    public TMP_Text endgameScore;
     public TMP_Text timerMenu;
     public TMP_Text scoreMenu;
+
     
     public void CloseMainMenu(){
 
@@ -45,6 +56,18 @@ public class UIManager : MonoBehaviour
     
     }
 
+    public void OpenShopCanvas(){
+
+        shopCanvas.SetActive(true);
+    
+    }
+
+    public void CloseShopCanvas(){
+
+        shopCanvas.SetActive(false);
+    
+    }
+
     public void OpenPauseMenu(){
 
         gm.PauseGame();
@@ -71,6 +94,24 @@ public class UIManager : MonoBehaviour
 
     }
 
+    public void MuteUnmuteGame(){
+
+        AudioListener.volume = AudioListener.volume > 0 ? 0 : 1;
+        if(AudioListener.volume > 0){
+
+            sound.transform.GetChild(1).gameObject.SetActive(false);
+            sound.transform.GetChild(0).gameObject.SetActive(true);
+
+        }
+        else{
+
+            sound.transform.GetChild(0).gameObject.SetActive(false);
+            sound.transform.GetChild(1).gameObject.SetActive(true);
+
+        }
+
+    }
+
     private void Update() {
 
         float remainingTime = gm.GetGameTime();
@@ -78,6 +119,7 @@ public class UIManager : MonoBehaviour
 
         timer.text = niceTime;
         score.text = string.Format("{0}/{1}", ScoreManager.Instance.GetScore(), gm.TargetScore);
+        points.text = ScoreManager.Instance.Points.ToString();
 
     }
 

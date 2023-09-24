@@ -1,8 +1,26 @@
+using System.Drawing;
 using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
     private int _score;
+    private int _points;
+
+    public int Points{
+
+        get{
+
+            return _points;
+
+        }
+
+        set{
+
+            _points = value;
+
+        }
+
+    }
 
     private static ScoreManager _scoreManager;
     public static ScoreManager Instance {
@@ -24,6 +42,7 @@ public class ScoreManager : MonoBehaviour
         }
 
         _scoreManager = this;
+        _points = PlayerPrefs.GetInt("points", 0);
 
     }
 

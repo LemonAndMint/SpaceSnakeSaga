@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
         uiManager.CloseEndMenu();
         uiManager.CloseInGameCanvas();
         uiManager.ClosePaseMenu();
+        uiManager.CloseShopCanvas();
 
     }
 
@@ -172,14 +173,16 @@ public class GameManager : MonoBehaviour
     
     public void GameOver(){
 
+        uiManager.endgameScore.text = ScoreManager.Instance.GetScore().ToString();
+
         _setHighscore();
+        _addPoints();
 
         _resetGame();
 
         uiManager.OpenEndMenu();
         uiManager.CloseInGameCanvas();
        _resetEntities();
-
 
     }
 
@@ -202,6 +205,13 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt("time", (int)_gameTime);
 
         }
+
+    }
+
+    private void _addPoints(){
+
+        ScoreManager.Instance.Points += ScoreManager.Instance.GetScore();
+        PlayerPrefs.SetInt("points", ScoreManager.Instance.Points); 
 
     }
 

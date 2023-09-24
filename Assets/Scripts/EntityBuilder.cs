@@ -70,8 +70,6 @@ public class EntityBuilder : MonoBehaviour
     [SerializeField] private float _asteroidMaxDestinationRadius;
     [SerializeField] private float _asteroidSizeDeflection;
 
-    private bool isStarted = false;
-
     private List<GameObject> _entityIngameGOList = new List<GameObject>();
 
     private void Awake() {
