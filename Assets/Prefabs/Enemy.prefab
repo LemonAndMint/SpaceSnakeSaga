@@ -103,10 +103,12 @@ MonoBehaviour:
   _speed: 80
   _maxSpeedDeflection: 5
   _counter: 5
-  _maxDistanceFromTarget: 2
-  weaponModule: {fileID: 0}
+  _maxDistanceFromTarget: 8
+  range: 15
+  enemy: 1
   targetDirect: {x: 0, y: 0, z: 0}
   focusPoint: {x: 0, y: 0, z: 0}
+  tempEnemy: {fileID: 0}
 --- !u!61 &8458911055226778044
 BoxCollider2D:
   m_ObjectHideFlags: 0

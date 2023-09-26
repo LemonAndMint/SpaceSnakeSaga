@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using EntityEnum;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -11,15 +12,17 @@ public class EnemyMovement : MonoBehaviour
     public void RandomSpeed(){ _speed = Random.Range(_speed - _maxSpeedDeflection, _speed + _maxSpeedDeflection); }
     [SerializeField] private float _counter = 2f;
     [SerializeField] private float _maxDistanceFromTarget = 3f;
+    [SerializeField] private float range = 10f;
+    [SerializeField] private Entity enemy;
 
-    public WeaponModule weaponModule;
-
+    [Space(5f)]
     public Vector3 targetDirect;
     public Vector3 focusPoint;
     private Vector3 _lastTargetDirect;
 
-    Vector3 directionVector = Vector3.zero;
+    public GameObject tempEnemy;
 
+    Vector3 directionVector = Vector3.zero;
 
     private Rigidbody2D rb2d;
     private float _runCounter = 0f;
@@ -29,9 +32,6 @@ public class EnemyMovement : MonoBehaviour
         if(rb2d == null)
             rb2d = GetComponent<Rigidbody2D>();
         
-        if(weaponModule == null)
-            weaponModule = GetComponentInChildren<WeaponModule>();
-
         _lastTargetDirect = transform.right;
         focusPoint = transform.position; 
 
@@ -47,10 +47,11 @@ public class EnemyMovement : MonoBehaviour
 
     private void _move(){
 
+        tempEnemy = EntityDetectUtil.GetNearestEntity(gameObject, enemy, range);
 
-        if(weaponModule.TargetedEnemy != null){
+        if(tempEnemy != null){
 
-            focusPoint = weaponModule.TargetedEnemy.transform.position;
+            focusPoint = tempEnemy.transform.position;
 
         }
         else{
@@ -88,7 +89,7 @@ public class EnemyMovement : MonoBehaviour
         }
         else if(Vector3.Distance(transform.position, focusPoint) >= _maxDistanceFromTarget && focusPoint != transform.position){
 
-            directionVector = Vector3.MoveTowards(transform.position, focusPoint, 100f);
+            directionVector = focusPoint - transform.position;
 
         }
         
@@ -100,9 +101,11 @@ public class EnemyMovement : MonoBehaviour
 
     void _rotate(){
 
-        if( weaponModule.TargetedEnemy != null ){
+        GameObject tempEnemy = EntityDetectUtil.GetNearestEntity(gameObject, enemy, range);
 
-            _rotateTo(weaponModule.TargetedEnemy.transform.position);
+        if( tempEnemy != null ){
+
+            _rotateTo(tempEnemy.transform.position);
 
         }
         else{
