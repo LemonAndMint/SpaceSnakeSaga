@@ -21,7 +21,7 @@ public class HeadModule : BlankPassiveModule
 
     public override void Action(){
 
-        ScoreManager.Instance.IncreaseScore();
+        ScoreManager.Instance.IncreaseScore(); //#FIXME
         moduleBuilder.AddModulePart(_energyType);
 
     }

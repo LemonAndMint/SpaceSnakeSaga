@@ -5,6 +5,7 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     public GameManager gm;
+    public ScoreManager scoreManager;
 
     public GameObject joystick;
     
@@ -118,8 +119,8 @@ public class UIManager : MonoBehaviour
         string niceTime = _floatToStringTime(remainingTime);
 
         timer.text = niceTime;
-        score.text = string.Format("{0}/{1}", ScoreManager.Instance.GetScore(), gm.TargetScore);
-        points.text = ScoreManager.Instance.Points.ToString();
+        score.text = string.Format("{0}/{1}", scoreManager.GetScore(), gm.TargetScore);
+        points.text = scoreManager.Points.ToString();
 
     }
 

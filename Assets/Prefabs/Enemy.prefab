@@ -84,7 +84,7 @@ MonoBehaviour:
   onGetHit:
     m_PersistentCalls:
       m_Calls: []
-  enemy: 0
+  enemy: 1
   _health: 3
   particleGOPrefb: {fileID: 1149458126234894266, guid: 45132c8b67ef2254ea5e7cdb3ee5124d, type: 3}
   isCollisionProof: 0
@@ -406,6 +406,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7980742534426533358, guid: 560bc146ff7d8e747bc1a54c44e61398, type: 3}
+      propertyPath: enemy
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7980742534426533358, guid: 560bc146ff7d8e747bc1a54c44e61398, type: 3}
       propertyPath: range
       value: 12
       objectReference: {fileID: 0}
@@ -584,6 +588,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6253391082816392334, guid: 560bc146ff7d8e747bc1a54c44e61398, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7980742534426533358, guid: 560bc146ff7d8e747bc1a54c44e61398, type: 3}
+      propertyPath: enemy
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7980742534426533358, guid: 560bc146ff7d8e747bc1a54c44e61398, type: 3}

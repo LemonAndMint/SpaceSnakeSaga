@@ -85,7 +85,7 @@ public class EntityBuilder : MonoBehaviour
     }
 
     /// <summary>
-    /// Oyunun başında çevredeki nesneleri yaratır.
+    /// Start creating objects in start.
     /// </summary>
     public void StartEntityBuilder(){
 
@@ -101,6 +101,9 @@ public class EntityBuilder : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Reposition all objects.
+    /// </summary>
     public void RepositionEntities(){
 
         foreach (GameObject entity in _entityIngameGOList)
@@ -112,12 +115,19 @@ public class EntityBuilder : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Change position of given object.
+    /// </summary>
+    /// <param name="entityGO"></param>
     public void ChangePosition(GameObject entityGO){
 
         _setRandomPosition(entityGO.transform);
 
     }
 
+    /// <summary>
+    /// Destroy all object in level.
+    /// </summary>
     public void DestroyAllObjects(){
 
         foreach (GameObject entityGO in _entityIngameGOList)
@@ -130,6 +140,12 @@ public class EntityBuilder : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Add to pool given amount Enemy, Energy and Asteroid object.
+    /// </summary>
+    /// <param name="enemyCount"></param>
+    /// <param name="energyCount"></param>
+    /// <param name="asteroidCount"></param>
     public void AddEntity(int enemyCount, int energyCount, int asteroidCount){
 
         _setUp<ModuleHealth>(_enemyGOPrefbList, enemyCount, _addDieListener);
@@ -216,13 +232,20 @@ public class EntityBuilder : MonoBehaviour
 
     private Vector3 _randomPosition(float maxValue){
 
+        //float x = (_minDistanceFromAnchor + Mathf.Abs(UnityEngine.Random.onUnitSphere.x) * maxValue) * Mathf.Sign(UnityEngine.Random.Range(-1, 1));
+        float tempX = Mathf.Abs(UnityEngine.Random.onUnitSphere.x) * maxValue;
+        float x = tempX > _minDistanceFromAnchor ? tempX : tempX  + _minDistanceFromAnchor ;
+        x *= Mathf.Sign(UnityEngine.Random.Range(-1, 1));
 
-        float x = (UnityEngine.Random.insideUnitSphere.x * maxValue + _minDistanceFromAnchor) *  Mathf.Sign(UnityEngine.Random.Range(-1, 1));
-        float y = (UnityEngine.Random.insideUnitSphere.y * maxValue + _minDistanceFromAnchor) *  Mathf.Sign(UnityEngine.Random.Range(-1, 1));
+        float tempY = Mathf.Abs(UnityEngine.Random.onUnitSphere.y) * maxValue;
+        float y = tempY > _minDistanceFromAnchor ? tempY : tempY  + _minDistanceFromAnchor ;
+        y *= Mathf.Sign(UnityEngine.Random.Range(-1, 1));
+
+        //float y = (_minDistanceFromAnchor + Mathf.Abs(UnityEngine.Random.onUnitSphere.y) * maxValue) * Mathf.Sign(UnityEngine.Random.Range(-1, 1));
 
         //Anchor çevresine yerleştir
-        Vector3 tempPosition = new Vector3( _anchorPoint.position.x + x, 
-                                            _anchorPoint.position.y + y, 0 );
+        Vector3 tempPosition = new Vector3( _anchorPoint.position.x + x , 
+                                            _anchorPoint.position.y + y, 0);
                                             
 
         return tempPosition;

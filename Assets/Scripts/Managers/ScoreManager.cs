@@ -1,4 +1,3 @@
-using System.Drawing;
 using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
@@ -11,12 +10,6 @@ public class ScoreManager : MonoBehaviour
         get{
 
             return _points;
-
-        }
-
-        set{
-
-            _points = value;
 
         }
 
@@ -61,6 +54,20 @@ public class ScoreManager : MonoBehaviour
     public int GetScore(){
 
         return _score;
+
+    }
+
+    public void AddPoints(){
+
+        _points += GetScore();
+        PlayerPrefs.SetInt("points", _points); 
+
+    }
+
+    public void DecreasePoints(int amount){
+
+        _points -= amount;
+        PlayerPrefs.SetInt("points", _points); 
 
     }
 

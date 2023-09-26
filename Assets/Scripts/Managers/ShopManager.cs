@@ -8,11 +8,13 @@ using ModuleManager;
 public class ShopManager : MonoBehaviour
 {
 
-    public List<ShipSkinScriptableObject> avaliableSkins;
-    public GameObject panel;
-    public GameObject skinGOPrefb;
-    public UIManager uiManager;
     public GameManager gm;
+    public ScoreManager scoreManager;
+    [Space(10f)]
+
+    public List<ShipSkinScriptableObject> avaliableSkins;
+    public GameObject shopPanel;
+    public GameObject skinGOPrefb;
     public Image currentShipSkin;
 
     // Start is called before the first frame update
@@ -37,7 +39,7 @@ public class ShopManager : MonoBehaviour
         foreach (ShipSkinScriptableObject skin in avaliableSkins)
         {
 
-            GameObject skinGO = Instantiate(skinGOPrefb, panel.transform, false);
+            GameObject skinGO = Instantiate(skinGOPrefb, shopPanel.transform, false);
             skinGO.GetComponentInChildren<Image>().sprite = skin.shipSkin;
 
             int tempIndex = index;
@@ -69,19 +71,18 @@ public class ShopManager : MonoBehaviour
             gm.snakeManagerPrefb.GetComponent<ModuleBuilder>().headSprite = avaliableSkins[index].shipSkin;
             currentShipSkin.sprite = avaliableSkins[index].shipSkin;
             
-            if(panel.transform.GetChild(index).GetComponentInChildren<TMP_Text>())
-                panel.transform.GetChild(index).GetComponentInChildren<TMP_Text>().gameObject.SetActive(false);
+            if(shopPanel.transform.GetChild(index).GetComponentInChildren<TMP_Text>())
+                shopPanel.transform.GetChild(index).GetComponentInChildren<TMP_Text>().gameObject.SetActive(false);
 
             PlayerPrefs.SetInt("currSkin", index);
 
         }
         else
         {
-            if(ScoreManager.Instance.Points >= avaliableSkins[index].price)
+            if(scoreManager.Points >= avaliableSkins[index].price)
             {
 
-                ScoreManager.Instance.Points -= avaliableSkins[index].price;
-                PlayerPrefs.SetInt("points", ScoreManager.Instance.Points);
+                scoreManager.DecreasePoints(avaliableSkins[index].price);
                 avaliableSkins[index].isBought = true;
                 _buyOrSetSkin(index);
 

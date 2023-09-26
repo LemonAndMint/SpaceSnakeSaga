@@ -29,9 +29,9 @@ public class WeaponModule : BlankModule
 
     private void _shoot(){
 
-        GameObject tempEnemy = _getNearestEnemy();
+        GameObject tempEnemy = EntityDetectUtil.GetNearestEntity(gameObject, enemy, range);
 
-        if(_isInRange(tempEnemy)){
+        if(tempEnemy != null){
 
             _currEnemy = tempEnemy;
 
@@ -47,7 +47,7 @@ public class WeaponModule : BlankModule
             bullet.GetComponent<Bullet>().damage = _damageValue;
             bullet.GetComponent<Bullet>().onHit.AddListener(Destroy);
 
-            GetComponentInChildren<AudioSource>().Play();
+            GetComponentInChildren<AudioSource>().Play(); //#FIXME
 
         }
         else{
@@ -56,37 +56,6 @@ public class WeaponModule : BlankModule
 
         }
 
-    }
-
-    private bool _isInRange(GameObject enemy){
-
-        if( enemy != null && Vector3.Distance(transform.position, enemy.transform.position) < range ){
-
-            return true;
-
-        }
-
-        return false;
-
-    }
-
-    private GameObject _getNearestEnemy(){ 
-
-        List<GameObject> enemies = GameObject.FindGameObjectsWithTag(EntityUtil.EnumToString(enemy)).ToList();
-        
-        if(enemies == null){
-
-            return null;
-
-        }
-      
-        List<GameObject> distanceList = enemies.OrderBy(enemyGO => Vector3.Distance(transform.position, enemyGO.transform.position)).ToList();
-
-        if(distanceList != null && distanceList.Count > 0)
-            return distanceList.First();
-
-        return null;
-       
     }
   
 }

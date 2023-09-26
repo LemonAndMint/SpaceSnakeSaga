@@ -5,27 +5,33 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public CameraActions cameraActions;
-    public GameObject snakeManagerPrefb;
     public UIManager uiManager;
-    public BackgroundMovement bgMovement;
+    public ScoreManager scoreManager;
 
+    [Space(5f)]
+    public BackgroundMovement bgMovement;
+    public CameraActions cameraActions;
+
+    [Space(10f)]
+    public GameObject snakeManagerPrefb;
     private ModuleBuilder _moduleBuilder;
     private GameObject _snakeGO = null;
     private bool _inGame = false;
     private bool _isLevelCleared = false;
 
-
-    private int _levelCount;
+    private int _levelCount = 0;
+    public float LevelCount { get { return _levelCount; } }
     private float _gameTime = 0f;
+    public float GameTime { get { return _gameTime; } }
 
+    [Space(10f)]
     [SerializeField] private float _targetScore; 
     public float TargetScore { get { return _targetScore; } }
     [SerializeField] private float _increasedTargetScore; 
     [SerializeField] private float _firstTargetGameTime; 
-    private float _targetGameTime; 
     [SerializeField] private float _decreasedTargetGameTime; 
     [SerializeField] private float _waitTime; 
+    private float _targetGameTime; 
 
     private void Start() {
         
@@ -67,7 +73,7 @@ public class GameManager : MonoBehaviour
                 GameOver();
 
             }
-            if(ScoreManager.Instance.GetScore() >= _targetScore && !_isLevelCleared){
+            if(scoreManager.GetScore() >= _targetScore && !_isLevelCleared){
 
                 Win();
                 _isLevelCleared = true;
@@ -127,12 +133,11 @@ public class GameManager : MonoBehaviour
         _moduleBuilder = _snakeGO.GetComponent<ModuleBuilder>();
         _moduleBuilder.onGameOver = (x) => GameOver();
 
-        //Oyuncunun kamera odak noktası.
-
         yield return new WaitUntil(() => _snakeGO.GetComponent<ModuleContainer>().Count > 0);
         yield return new WaitUntil(() => EntityBuilder.Instance != null);
         
         bgMovement.playerTransform = _snakeGO.GetComponent<ModuleContainer>().Get(0).transform;
+        //Oyuncunun kamera odak noktası.
         EntityBuilder.Instance.AnchorPoint = _snakeGO.GetComponent<ModuleContainer>().Get(0).transform;
 
         EntityBuilder.Instance.StartEntityBuilder();
@@ -173,10 +178,10 @@ public class GameManager : MonoBehaviour
     
     public void GameOver(){
 
-        uiManager.endgameScore.text = ScoreManager.Instance.GetScore().ToString();
+        uiManager.endgameScore.text = scoreManager.GetScore().ToString();
 
         _setHighscore();
-        _addPoints();
+        scoreManager.AddPoints();
 
         _resetGame();
 
@@ -189,7 +194,7 @@ public class GameManager : MonoBehaviour
     private void _resetGame(){
 
         _levelCount = 0;
-        ScoreManager.Instance.ResetScore();
+        scoreManager.ResetScore();
         _gameTime = _firstTargetGameTime;
 
        _inGame = false;
@@ -201,18 +206,13 @@ public class GameManager : MonoBehaviour
         if(PlayerPrefs.GetInt("level") <= _levelCount ){
 
             PlayerPrefs.SetInt("level", _levelCount);
-            PlayerPrefs.SetInt("score", ScoreManager.Instance.GetScore());
+            PlayerPrefs.SetInt("score", scoreManager.GetScore());
             PlayerPrefs.SetInt("time", (int)_gameTime);
 
         }
 
     }
 
-    private void _addPoints(){
-
-        ScoreManager.Instance.Points += ScoreManager.Instance.GetScore();
-        PlayerPrefs.SetInt("points", ScoreManager.Instance.Points); 
-
-    }
+    
 
 }
