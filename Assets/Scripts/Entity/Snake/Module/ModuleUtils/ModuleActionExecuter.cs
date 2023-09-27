@@ -40,7 +40,9 @@ public class ModuleActionExecuter : MonoBehaviour
 
         while(true){
 
-            module.Action();
+            if(module != null)
+                module.Action();
+                
             yield return new WaitForSeconds(module.ActionCooldown);
 
         }

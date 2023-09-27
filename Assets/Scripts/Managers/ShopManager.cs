@@ -26,12 +26,6 @@ public class ShopManager : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void _initSkins(){
 
         int index = 0;

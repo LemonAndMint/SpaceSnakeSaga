@@ -15,10 +15,15 @@ public class Bullet : MonoBehaviour
 
     public void OnImpact(){ onHit?.Invoke(this.gameObject); }
 
+    private void Awake() {
+        
+        onHit.AddListener( (GameObject x) => _startParticle() );
+
+    }
+
     private void Start() {
         
         transform.right = targetLastPosition - transform.position;
-        onHit.AddListener( (GameObject x) => _startParticle() );
 
     }
 

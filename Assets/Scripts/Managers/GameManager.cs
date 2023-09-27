@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public ScoreManager scoreManager;
 
     [Space(5f)]
-    public BackgroundMovement bgMovement;
+    //public BackgroundMovement bgMovement;
     public CameraActions cameraActions;
 
     [Space(10f)]
@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float _firstTargetGameTime; 
     [SerializeField] private float _decreasedTargetGameTime; 
     [SerializeField] private float _waitTime; 
+    private float _runTime = 0f; 
     private float _targetGameTime; 
 
     private void Start() {
@@ -51,7 +52,7 @@ public class GameManager : MonoBehaviour
 
     public void NextLevel(){
 
-        EntityBuilder.Instance.AddEntity(5 , 1, 3);
+        EntityBuilder.Instance.AddEntity(5, 1, 3);
 
         _targetGameTime -= _decreasedTargetGameTime;
         _gameTime = _targetGameTime;
@@ -67,6 +68,7 @@ public class GameManager : MonoBehaviour
         if(_inGame){
 
             _gameTime -= Time.deltaTime;   
+            _runTime += Time.deltaTime;
 
             if(_gameTime < 0){
 
@@ -136,7 +138,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitUntil(() => _snakeGO.GetComponent<ModuleContainer>().Count > 0);
         yield return new WaitUntil(() => EntityBuilder.Instance != null);
         
-        bgMovement.playerTransform = _snakeGO.GetComponent<ModuleContainer>().Get(0).transform;
+        //bgMovement.playerTransform = _snakeGO.GetComponent<ModuleContainer>().Get(0).transform;
         //Oyuncunun kamera odak noktası.
         EntityBuilder.Instance.AnchorPoint = _snakeGO.GetComponent<ModuleContainer>().Get(0).transform;
 
@@ -196,6 +198,7 @@ public class GameManager : MonoBehaviour
         _levelCount = 0;
         scoreManager.ResetScore();
         _gameTime = _firstTargetGameTime;
+        _runTime = 0f;
 
        _inGame = false;
 
@@ -207,7 +210,7 @@ public class GameManager : MonoBehaviour
 
             PlayerPrefs.SetInt("level", _levelCount);
             PlayerPrefs.SetInt("score", scoreManager.GetScore());
-            PlayerPrefs.SetInt("time", (int)_gameTime);
+            PlayerPrefs.SetInt("time", (int)_runTime);
 
         }
 

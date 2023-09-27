@@ -11,7 +11,6 @@ public class BackgroundMovement : MonoBehaviour
     public CinemachineVirtualCamera vCamera;
     public Transform playerTransform;
     public Transform backgroundTransform;
-    public MarkerStorage playerMarkerStorage;
 
     // Original background object dimensions
     private float _backgroundOriginalSizeX = 0;
@@ -52,7 +51,7 @@ public class BackgroundMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(playerTransform != null){
+        /*if(playerTransform != null){
 
             Vector2 srsize = (Vector2)playerTransform.position - (Vector2)lastVect3;
             srsize = new Vector2(Mathf.Abs(srsize.x) * Time.deltaTime * 150f, Mathf.Abs(srsize.y) * Time.deltaTime * 150f);
@@ -60,6 +59,34 @@ public class BackgroundMovement : MonoBehaviour
             sr.size += srsize;
             
             lastVect3 = playerTransform.position;
+
+        }*/
+
+        if(playerTransform != null){
+
+                if ((playerTransform.position.x + worldWidth / 2f) % (srX / 2f) >= _backgroundOriginalSizeX / 2f)
+                {
+                    Debug.Log("1");
+                    backgroundTransform.position += new Vector3(_backgroundOriginalSizeX, 0, 0);
+                }
+                if ((playerTransform.position.x - worldWidth / 2f) % (srX / 2f) <= -_backgroundOriginalSizeX / 2f)
+                {
+                    Debug.Log("2");
+                    backgroundTransform.position += new Vector3(-_backgroundOriginalSizeX, 0, 0);
+                }
+                if (( playerTransform.position.y + worldHeight / 2f ) >=  backgroundTransform.position.y + ( srY / 2f ))
+                {
+                    Debug.Log("3");
+                    //backgroundTransform.position += new Vector3(0, (_backgroundOriginalSizeY / 2f) - (worldHeight / 2f), 0);
+                    //backgroundTransform.position += Vector3.Slerp(playerTransform.position, new Vector3(0, (_backgroundOriginalSizeY / 2f) - (worldHeight / 2f), 0), Time.deltaTime * 10f);
+
+                    //sr.size += new Vector2( 0 , _spaceCircleRadius + _backgroundOriginalSizeY );
+                }
+                if ((playerTransform.position.y - worldHeight / 2f) % (srY / 2f) <= - _backgroundOriginalSizeY / 2f)
+                {
+                    Debug.Log("4");
+                    backgroundTransform.position += new Vector3(0, -_backgroundOriginalSizeY, 0);
+                }
 
         }
 
@@ -70,8 +97,6 @@ public class BackgroundMovement : MonoBehaviour
         while(true){
 
             if(playerTransform != null){
-
-                Debug.Log( playerTransform.position.y + worldHeight / 2f + "   " + (backgroundTransform.position.y + ( _backgroundOriginalSizeY  / 2f )));
 
                 if ((playerTransform.position.x + worldWidth / 2f) % (srX / 2f) >= _backgroundOriginalSizeX / 2f)
                 {
@@ -87,8 +112,8 @@ public class BackgroundMovement : MonoBehaviour
                 {
                     Debug.Log("3");
                     backgroundTransform.position += new Vector3(0, (_backgroundOriginalSizeY / 2f) - (worldHeight / 2f), 0);
-                    
-                    sr.size += new Vector2( 0 , _spaceCircleRadius + _backgroundOriginalSizeY );
+
+                    //sr.size += new Vector2( 0 , _spaceCircleRadius + _backgroundOriginalSizeY );
                 }
                 if ((playerTransform.position.y - worldHeight / 2f) % (srY / 2f) <= - _backgroundOriginalSizeY / 2f)
                 {

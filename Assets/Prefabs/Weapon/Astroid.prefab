@@ -132,7 +132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   targetLastPosition: {x: 0, y: 0, z: 0}
-  damage: 3
+  damage: 5
   particleGOPrefb: {fileID: 1949398963624892, guid: d786e2d05a34bf741b1bd7fd569828cd, type: 3}
   onHit:
     m_PersistentCalls:

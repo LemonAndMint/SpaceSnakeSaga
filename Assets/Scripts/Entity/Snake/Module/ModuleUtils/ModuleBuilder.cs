@@ -132,6 +132,11 @@ namespace ModuleManager
                     cameraActions.ZoomOut();
 
             }
+            else {
+
+                _moduleType = null;
+
+            }
 
         }
 
