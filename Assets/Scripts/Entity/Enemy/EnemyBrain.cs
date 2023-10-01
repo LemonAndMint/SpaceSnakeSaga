@@ -5,12 +5,11 @@ using UnityEngine;
 
 public class EnemyBrain : MonoBehaviour
 {
-    
     public List<WeaponModule> weaponModuleList;
     public EnemyMovement enemyMovement;
 
     [SerializeField]private int raysToShoot = 6;
-    [SerializeField]private float _actionCooldown; //override weapon module cooldowns;
+    [SerializeField]private float _actionCooldown; //override weapon module cooldowns
     [SerializeField]private float _maxCooldownDeflection;
     [SerializeField]private float _detectCooldown;
     [SerializeField]private float _detectRadius = 2f;

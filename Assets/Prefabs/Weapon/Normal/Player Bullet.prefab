@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4637085782770944774}
-  - component: {fileID: 941063714715710826}
-  - component: {fileID: 1266033806748632683}
-  m_Layer: 0
-  m_Name: Enemy Bullet
-  m_TagString: Enemy Bullet
+  - component: {fileID: 9153490983815644973}
+  - component: {fileID: 7957743395911837961}
+  m_Layer: 7
+  m_Name: Player Bullet
+  m_TagString: Player Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31,10 +31,10 @@ Transform:
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 8648973099903162581}
+  - {fileID: 1827927426286655786}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &941063714715710826
+--- !u!114 &9153490983815644973
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,17 +43,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 3489345700171343348}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d0c6c9e423645a459bc523efb0a09ea, type: 3}
+  m_Script: {fileID: 11500000, guid: a1b4a63a2a69adc42979adf84c8df7a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
+  moveSpeed: 5
   targetLastPosition: {x: 0, y: 0, z: 0}
   damage: 1
-  particleGOPrefb: {fileID: 2379806838990587663, guid: 79e7fe688c5859e49a167f096e83b952, type: 3}
+  particleGOPrefb: {fileID: 8360844116734744417, guid: 5954860f17c6da6478fbc05fb9c7f8af, type: 3}
   onHit:
     m_PersistentCalls:
       m_Calls: []
---- !u!61 &1266033806748632683
+--- !u!61 &7957743395911837961
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,20 +85,20 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.006977558, y: 0.013954729}
+  m_Offset: {x: 0.012864113, y: 0.0078674555}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.16, y: 0.53}
+  m_Size: {x: 2.86, y: 1.04}
   m_EdgeRadius: 0
---- !u!1 &5602600001912757382
+--- !u!1 &8040147771376659072
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -106,22 +106,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8648973099903162581}
-  - component: {fileID: 420513627122917946}
+  - component: {fileID: 1827927426286655786}
+  - component: {fileID: 8819598595385572887}
   m_Layer: 0
-  m_Name: redlaser
+  m_Name: GFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8648973099903162581
+--- !u!4 &1827927426286655786
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5602600001912757382}
+  m_GameObject: {fileID: 8040147771376659072}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -130,13 +130,13 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4637085782770944774}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
---- !u!212 &420513627122917946
+--- !u!212 &8819598595385572887
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5602600001912757382}
+  m_GameObject: {fileID: 8040147771376659072}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -171,7 +171,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: f55e03f9cb2daf842936ab69d0fe2e2c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8215f35f267d16d4d99da87775bd16b3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

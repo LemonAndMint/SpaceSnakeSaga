@@ -1,18 +1,20 @@
-using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 using EntityEnum;
 
 public class WeaponModule : BlankModule
 {
-    public float range = 10f;
+
+    [Space(10f)]
     public GameObject bulletPrefab;
     public Transform cannonBarrelTransform;
     public Entity enemy;
 
+    [Space(10f)]
+    public float range = 10f;
     [SerializeField]private int _damageValue;
     [SerializeField]private float _accuracyDeflection;
 
+    [Space(10f)]
     private GameObject _currEnemy;
     public GameObject TargetedEnemy{
 
@@ -46,6 +48,9 @@ public class WeaponModule : BlankModule
             bullet.GetComponent<Bullet>().targetLastPosition = tempTargetPos;
             bullet.GetComponent<Bullet>().damage = _damageValue;
             bullet.GetComponent<Bullet>().onHit.AddListener(Destroy);
+
+            if(bullet.GetComponent<Laser>())
+                bullet.GetComponent<Laser>().weaponRotation = transform.rotation;
 
             if(GetComponentInChildren<AudioSource>() != null)
                 GetComponentInChildren<AudioSource>().Play();

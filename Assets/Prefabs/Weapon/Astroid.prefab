@@ -93,7 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4637085782770944774}
-  - component: {fileID: 941063714715710826}
+  - component: {fileID: 8520898687921821613}
   - component: {fileID: 6636246964909810526}
   m_Layer: 0
   m_Name: Astroid
@@ -118,7 +118,7 @@ Transform:
   - {fileID: 2016895402567474445}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &941063714715710826
+--- !u!114 &8520898687921821613
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -127,13 +127,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3489345700171343348}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d0c6c9e423645a459bc523efb0a09ea, type: 3}
+  m_Script: {fileID: 11500000, guid: a1b4a63a2a69adc42979adf84c8df7a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
   targetLastPosition: {x: 0, y: 0, z: 0}
-  damage: 5
-  particleGOPrefb: {fileID: 1949398963624892, guid: d786e2d05a34bf741b1bd7fd569828cd, type: 3}
+  damage: 0
+  particleGOPrefb: {fileID: 1472517160122636, guid: 42b5a7c17e87672438c3602c0b701f71, type: 3}
   onHit:
     m_PersistentCalls:
       m_Calls: []
