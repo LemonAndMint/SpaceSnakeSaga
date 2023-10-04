@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using ModuleManager;
 using UnityEngine;
 
@@ -31,6 +32,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float _firstTargetGameTime; 
     [SerializeField] private float _decreasedTargetGameTime; 
     [SerializeField] private float _waitTime; 
+    [SerializeField] private InterstitialAd ad;
     private float _runTime = 0f; 
     private float _targetGameTime; 
 
@@ -179,6 +181,8 @@ public class GameManager : MonoBehaviour
 
     
     public void GameOver(){
+
+        ad.ShowAd();
 
         uiManager.endgameScore.text = scoreManager.GetScore().ToString();
 

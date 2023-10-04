@@ -39,7 +39,7 @@ public class WeaponModule : BlankModule
 
             GameObject bullet = Instantiate(bulletPrefab, cannonBarrelTransform.transform.position, Quaternion.identity);
             
-            if(!bullet.GetComponent<Bullet>()){ bullet.AddComponent<Bullet>(); }
+            //if(!bullet.GetComponent<Bullet>()){ bullet.AddComponent<Bullet>(); }
 
             Vector3 tempTargetPos = new Vector3( _currEnemy.transform.position.x + Random.insideUnitSphere.x * _accuracyDeflection, 
                                                  _currEnemy.transform.position.y + Random.insideUnitSphere.y * _accuracyDeflection,
@@ -49,8 +49,12 @@ public class WeaponModule : BlankModule
             bullet.GetComponent<Bullet>().damage = _damageValue;
             bullet.GetComponent<Bullet>().onHit.AddListener(Destroy);
 
-            if(bullet.GetComponent<Laser>())
+            if(bullet.GetComponent<Laser>()){
+             
                 bullet.GetComponent<Laser>().weaponRotation = transform.rotation;
+                bullet.transform.parent = transform;
+
+            }
 
             if(GetComponentInChildren<AudioSource>() != null)
                 GetComponentInChildren<AudioSource>().Play();
@@ -63,5 +67,9 @@ public class WeaponModule : BlankModule
         }
 
     }
-  
+
+
+
+
+
 }

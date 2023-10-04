@@ -4,14 +4,9 @@ using System.Collections;
 
 public class Laser : Bullet
 {
-    public GameObject laserBodyGO;
     public Quaternion weaponRotation;
+    public float shootRange;
     [SerializeField] private float _extendDuration;
-
-    void Awake()
-    {
-        onHit.RemoveListener(Destroy);
-    }
 
     private void Start() {
         
@@ -22,18 +17,19 @@ public class Laser : Bullet
 
     private void _extendBody(){
 
-        laserBodyGO.transform.DOScaleY(10f, moveSpeed);
+        transform.DOScaleY(shootRange, moveSpeed);
 
     }
 
     private void _retractBody(){
 
-        laserBodyGO.transform.DOScaleY(0f, moveSpeed).OnComplete( () => Destroy(this.gameObject));
+        transform.DOScaleY(0f, moveSpeed);
 
     }
 
     private IEnumerator _move(){
 
+        onHit.RemoveListener(Destroy);
         _extendBody();
         yield return new WaitForSeconds(_extendDuration);
         _retractBody();

@@ -18,6 +18,8 @@ public class GreatStarBrain : MonoBehaviour //#FIXME make brains child?
     void Update()
     {
         
+        
+
     }
 
     private IEnumerator _actionRepeater(){
@@ -36,4 +38,8 @@ public class GreatStarBrain : MonoBehaviour //#FIXME make brains child?
         }
 
     }
+
+    
+
+
 }
